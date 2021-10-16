@@ -1,9 +1,20 @@
+/**
+ * \file main.c
+ * \brief Fonction principale qui permet de **lancer le jeu**
+ * \author Bendriss Mohamed Dris **uniquement pour les fonctions allouer_grille et libere grille**
+ */
+
 #include <stdio.h>
 
 #include "grille.h"
 #include "io.h"
 #include "jeu.h"
 
+/**
+ * \param[in] argc
+ * \param[in] argv
+ * \brief Permet de jouer au jeu de la vie
+ */
 int main (int argc, char ** argv) {
 	
 	if (argc != 2 )

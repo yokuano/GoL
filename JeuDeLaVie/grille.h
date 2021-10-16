@@ -5,7 +5,12 @@
 #include <stdio.h>
 #include <assert.h>
 
-// structure grille : nombre de lignes, nombre de colonnes, tableau de tableau de cellules
+/**
+ * \struct grille
+ * **nbl**: nombre de lignes\n
+ * **nbc**: nombre de colonnes\n
+ * **cellules**: tableau d'entiers à 2 dimensions\n
+ */
 typedef struct {int nbl; int nbc; int** cellules;} grille;
  
 // alloue une grille de taille l*c, et initialise toutes les cellules à mortes

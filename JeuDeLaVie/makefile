@@ -15,3 +15,6 @@ main.o: main.c grille.h jeu.h io.h
 
 clean:
 	rm -rf *.o main
+
+dist:
+	tar -cJvf CodeBendrissMohamedDris.tar.xz *.c *.h makefile 

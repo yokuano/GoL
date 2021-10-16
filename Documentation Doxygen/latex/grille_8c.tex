@@ -1,0 +1,100 @@
+\hypertarget{grille_8c}{}\doxysection{Référence du fichier Jeu\+De\+La\+Vie/grille.c}
+\label{grille_8c}\index{JeuDeLaVie/grille.c@{JeuDeLaVie/grille.c}}
+
+
+Ensemles de fonctions qui permettent de {\bfseries{manipuller des grilles}}~\newline
+ A l\textquotesingle{}aide de ce code, on peut\+: creer une grille, la suprimmer, créer une grille à partir d\textquotesingle{}un fichier, copier une grille.  
+
+
+{\ttfamily \#include \char`\"{}grille.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{grille_8c_ae621f51c60aa4fafaa0c9f6c9b5a4036}{alloue\+\_\+grille}} (int l, int c, \mbox{\hyperlink{structgrille}{grille}} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Alloue une {\bfseries{grille}} de taille {\bfseries{l$\ast$c}}, et initialise {\bfseries{toutes les cellules à mortes}} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{grille_8c_a7074b2b15576e9d2b3cd15c3a1dc7012}{libere\+\_\+grille}} (\mbox{\hyperlink{structgrille}{grille}} $\ast$g)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Libère}} la grille mise en paramètre de l\textquotesingle{}espace mémoire \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{grille_8c_adf5501cc0bbad28f5ffc561d92197e4e}{init\+\_\+grille\+\_\+from\+\_\+file}} (char $\ast$filename, \mbox{\hyperlink{structgrille}{grille}} $\ast$g)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Créer}} une grille {\bfseries{à partir d\textquotesingle{}un fichier}} mis en argument filename \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{grille_8c_a63b3ae16c86b568f6aa8f9ce84128b1e}{copie\+\_\+grille}} (\mbox{\hyperlink{structgrille}{grille}} gs, \mbox{\hyperlink{structgrille}{grille}} gd)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Copie}} la grille {\bfseries{gs}} dans la grille {\bfseries{gd}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Ensemles de fonctions qui permettent de {\bfseries{manipuller des grilles}}~\newline
+ A l\textquotesingle{}aide de ce code, on peut\+: creer une grille, la suprimmer, créer une grille à partir d\textquotesingle{}un fichier, copier une grille. 
+
+\begin{DoxyAuthor}{Auteur}
+Bendriss Mohamed Dris {\bfseries{uniquement pour les fonctions allouer\+\_\+grille et libere grille}} 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{grille_8c_ae621f51c60aa4fafaa0c9f6c9b5a4036}\label{grille_8c_ae621f51c60aa4fafaa0c9f6c9b5a4036}} 
+\index{grille.c@{grille.c}!alloue\_grille@{alloue\_grille}}
+\index{alloue\_grille@{alloue\_grille}!grille.c@{grille.c}}
+\doxysubsubsection{\texorpdfstring{alloue\_grille()}{alloue\_grille()}}
+{\footnotesize\ttfamily void alloue\+\_\+grille (\begin{DoxyParamCaption}\item[{int}]{l,  }\item[{int}]{c,  }\item[{\mbox{\hyperlink{structgrille}{grille}} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Alloue une {\bfseries{grille}} de taille {\bfseries{l$\ast$c}}, et initialise {\bfseries{toutes les cellules à mortes}} 
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em l} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em c} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em g} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{grille_8c_a63b3ae16c86b568f6aa8f9ce84128b1e}\label{grille_8c_a63b3ae16c86b568f6aa8f9ce84128b1e}} 
+\index{grille.c@{grille.c}!copie\_grille@{copie\_grille}}
+\index{copie\_grille@{copie\_grille}!grille.c@{grille.c}}
+\doxysubsubsection{\texorpdfstring{copie\_grille()}{copie\_grille()}}
+{\footnotesize\ttfamily void copie\+\_\+grille (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgrille}{grille}}}]{gs,  }\item[{\mbox{\hyperlink{structgrille}{grille}}}]{gd }\end{DoxyParamCaption})}
+
+
+
+{\bfseries{Copie}} la grille {\bfseries{gs}} dans la grille {\bfseries{gd}} 
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em gs} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em gd} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{grille_8c_adf5501cc0bbad28f5ffc561d92197e4e}\label{grille_8c_adf5501cc0bbad28f5ffc561d92197e4e}} 
+\index{grille.c@{grille.c}!init\_grille\_from\_file@{init\_grille\_from\_file}}
+\index{init\_grille\_from\_file@{init\_grille\_from\_file}!grille.c@{grille.c}}
+\doxysubsubsection{\texorpdfstring{init\_grille\_from\_file()}{init\_grille\_from\_file()}}
+{\footnotesize\ttfamily void init\+\_\+grille\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\mbox{\hyperlink{structgrille}{grille}} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+{\bfseries{Créer}} une grille {\bfseries{à partir d\textquotesingle{}un fichier}} mis en argument filename 
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em filename} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em g} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{grille_8c_a7074b2b15576e9d2b3cd15c3a1dc7012}\label{grille_8c_a7074b2b15576e9d2b3cd15c3a1dc7012}} 
+\index{grille.c@{grille.c}!libere\_grille@{libere\_grille}}
+\index{libere\_grille@{libere\_grille}!grille.c@{grille.c}}
+\doxysubsubsection{\texorpdfstring{libere\_grille()}{libere\_grille()}}
+{\footnotesize\ttfamily void libere\+\_\+grille (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgrille}{grille}} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+{\bfseries{Libère}} la grille mise en paramètre de l\textquotesingle{}espace mémoire 
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ out}}  & {\em g} & \\
+\hline
+\end{DoxyParams}
