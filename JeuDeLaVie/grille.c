@@ -16,10 +16,9 @@ void alloue_grille(int l, int c, grille* g){
 
 	g->nbc=c;
 	g->nbl=l;
-	g->cellules=malloc(sizeof(int)*l);
-
+	g->cellules= (int**) malloc(sizeof(int*)*l);
 	for(int i=0; i<l; i++){
-		g->cellules[i]=malloc(sizeof(int)*c);	
+		g->cellules[i]= (int*) malloc(sizeof(int)*c);	
 	}
 }
 
@@ -28,6 +27,7 @@ void alloue_grille(int l, int c, grille* g){
  * \param[out] g
  */
 void libere_grille (grille* g){
+	
 	for(int i=0; i<g->nbl; i++){
 		free(g->cellules[i]);
 	}

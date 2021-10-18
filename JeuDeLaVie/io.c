@@ -69,7 +69,8 @@ void efface_grille (grille g){
 void debut_jeu(grille *g, grille *gc){
 	char c = getchar(); 
 	while (c != 'q') // touche 'q' pour quitter
-	{ 
+	{
+		char grille_name[64];
 		switch (c) {
 			case '\n' : 
 			{ // touche "entree" pour évoluer
@@ -78,6 +79,16 @@ void debut_jeu(grille *g, grille *gc){
 				affiche_grille(*g);
 				break;
 			}
+			case 'n':
+				// Liberer l'éspace mémoire
+				printf("\nEntrez le chemain de la grille: ");
+				libere_grille(g);
+				libere_grille(gc);
+				scanf(" %s", grille_name);
+				init_grille_from_file(grille_name, g);
+				alloue_grille(g->nbl, g->nbc, gc);
+				affiche_grille(*g);
+				break;
 			default : 
 			{ // touche non traitée
 				printf("\n\e[1A");
