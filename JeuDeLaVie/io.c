@@ -4,6 +4,8 @@
  * 		  A l'aide de ce code, on peut: afficher une ligne, une colonne, ainsi qu'une grille complète. Il est également possible d'effacer la grille.
  * \author Bendriss Mohamed Dris **Uniquement pour les commentaires**
  */
+#include <stdlib.h>
+
 #include "io.h"
 
 /**
@@ -67,24 +69,29 @@ void efface_grille (grille g){
  * -Si on appuie sur **une autre touche**: on **efface le charactère**, et rien ne se passe
  */
 void debut_jeu(grille *g, grille *gc){
-	char c = getchar(); 
+	int timeEvo=0;
+	char c = getchar();
 	while (c != 'q') // touche 'q' pour quitter
 	{
 		char grille_name[64];
+		efface_grille(*g);
+		printf("Nombres d'évolution: %d", timeEvo);
 		switch (c) {
 			case '\n' : 
 			{ // touche "entree" pour évoluer
 				evolue(g,gc);
-				efface_grille(*g);
 				affiche_grille(*g);
+				timeEvo++;
 				break;
 			}
 			case 'n':
-				// Liberer l'éspace mémoire
-				printf("\nEntrez le chemain de la grille: ");
+				affiche_grille(*g);
+				printf("Entrez le chemain de la grille: ");
 				libere_grille(g);
 				libere_grille(gc);
+				timeEvo=1;
 				scanf(" %s", grille_name);
+				system("clear");
 				init_grille_from_file(grille_name, g);
 				alloue_grille(g->nbl, g->nbc, gc);
 				affiche_grille(*g);
