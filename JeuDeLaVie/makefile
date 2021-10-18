@@ -17,4 +17,4 @@ clean:
 	rm -rf *.o main
 
 dist:
-	tar -cJvf CodeBendrissMohamedDris.tar.xz *.c *.h makefile 
+	tar -cJvf CodeBendrissMohamedDris.tar.xz *.c *.h makefile
