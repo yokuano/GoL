@@ -69,7 +69,7 @@ void efface_grille (grille g){
  * -Si on appuie sur **une autre touche**: on **efface le charactère**, et rien ne se passe
  */
 void debut_jeu(grille *g, grille *gc){
-	int timeEvo=0;
+	int timeEvo=1;
 	char c = getchar();
 	while (c != 'q') // touche 'q' pour quitter
 	{
@@ -89,7 +89,7 @@ void debut_jeu(grille *g, grille *gc){
 				printf("Entrez le chemain de la grille: ");
 				libere_grille(g);
 				libere_grille(gc);
-				timeEvo=1;
+				timeEvo=0;
 				scanf(" %s", grille_name);
 				system("clear");
 				init_grille_from_file(grille_name, g);
