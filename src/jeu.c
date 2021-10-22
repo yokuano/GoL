@@ -54,6 +54,24 @@ int compte_voisins_vivants_en_mode_non_cyclique(int i,int j,grille g){
 	return v;
 }
 
+void calcul_vieillsement(grille g, grille gAge){
+
+	for(int i=0; i<g.nbl; i++){
+		for(int j=0; j<g.nbc; j++){
+
+			if(est_vivante(i, j, g)){
+				gAge.cellules[i][j]++;
+			}
+
+			else{
+				gAge.cellules[i][j]=0;
+			}
+
+		}
+	}
+
+}
+
 
 /**
  * \param[out] g

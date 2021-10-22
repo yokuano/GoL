@@ -5,6 +5,7 @@
 #include "grille.h"
 #include "jeu.h"
 
+
 // affichage d'un trait horizontal
 void affiche_trait (int c);
 

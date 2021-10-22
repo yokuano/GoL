@@ -5,8 +5,24 @@
  * \author Bendriss Mohamed Dris **Uniquement pour les commentaires**
  */
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "io.h"
+
+int vieillsement=0;
+
+void print_gui(int evo, int aging){
+
+	printf("Nombre d'évolutions: %d\n", evo);
+
+	if(aging==0){
+		printf("Vieillsement: Désactivé");
+	}
+	else{
+		printf("Vieillsement: Activé");
+	}
+
+}
 
 /**
  * \param[in] c
@@ -30,6 +46,7 @@ void affiche_trait (int c){
  */
 void affiche_ligne (int c, int* ligne){
 	int i;
+
 	for (i=0; i<c; ++i) 
 		if (ligne[i] == 0 ) printf ("|   "); else printf ("| O ");
 	printf("|\n");
@@ -69,16 +86,18 @@ void efface_grille (grille g){
  * -Si on appuie sur **une autre touche**: on **efface le charactère**, et rien ne se passe
  */
 void debut_jeu(grille *g, grille *gc){
+
 	int timeEvo=1;
 	char c = getchar();
 	while (c != 'q') // touche 'q' pour quitter
 	{
 		char grille_name[64];
 		efface_grille(*g);
-		printf("Nombres d'évolution: %d", timeEvo);
 		switch (c) {
 			case '\n' : 
 			{ // touche "entree" pour évoluer
+				system("clear");
+				print_gui(timeEvo, vieillsement);
 				evolue(g,gc);
 				affiche_grille(*g);
 				timeEvo++;
@@ -94,7 +113,21 @@ void debut_jeu(grille *g, grille *gc){
 				system("clear");
 				init_grille_from_file(grille_name, g);
 				alloue_grille(g->nbl, g->nbc, gc);
+				print_gui(timeEvo, vieillsement);
 				affiche_grille(*g);
+				break;
+			case 'v':
+				system("clear");
+				if(vieillsement==0){
+					vieillsement=1;
+					print_gui(timeEvo, vieillsement);
+					affiche_grille(*g);
+				}
+				else{
+					vieillsement=0;
+					print_gui(timeEvo, vieillsement);
+					affiche_grille(*g);
+				}
 				break;
 			default : 
 			{ // touche non traitée
@@ -102,7 +135,7 @@ void debut_jeu(grille *g, grille *gc){
 				break;
 			}
 		}
-		c = getchar(); 
+		c = getchar();
 	}
 	return;	
 }
