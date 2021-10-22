@@ -1,7 +1,7 @@
 main: ./src/main.o ./src/grille.o ./src/io.o ./src/jeu.o
 	gcc -o main ./src/main.o ./src/grille.o ./src/io.o ./src/jeu.o -lm
 
-grille.o: ./src/grille.c grille.h
+grille.o: ./src/grille.c ./src/grille.h
 	gcc -o ./src/grille.o -c grille.c -Wall
 
 io.o: ./src/io.c ./src/io.h ./src/grille.h ./src/jeu.h
@@ -14,7 +14,7 @@ main.o: ./src/main.c ./src/grille.h ./src/jeu.h ./src/io.h
 	gcc -o ./src/main.o -c ./src/main.c -Wall 
 
 clean:
-	rm -rf ./src/*.o main *.tar.xz
+	rm -rf ./src/*.o main *.tar.xz doc
 
 dist:
 	tar -cJvf BendrissMohamedDris-GoL-version.tar.xz src makefile Doxyfile

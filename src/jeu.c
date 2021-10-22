@@ -10,10 +10,10 @@
  * \param[in] i
  * \param[in] j
  * \param[in] g
- * \brief Permet de compter **les cellules voisines** de la cellules de coordonnées (i, j)
- * \return Nombre de voisins v (int)
+ * \brief Permet de compter **les cellules voisines** de la cellules de coordonnées (i, j) en mode cyclique
+ * \return Nombre de voisins v (int) en mode cyclique
  */
-int compte_voisins_vivants (int i, int j, grille g){
+int compte_voisins_vivants_en_mode_cyclique(int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
 	v+= est_vivante(modulo(i-1,l),modulo(j-1,c),g);
 	v+= est_vivante(modulo(i-1,l),modulo(j,c),g);
@@ -27,6 +27,34 @@ int compte_voisins_vivants (int i, int j, grille g){
 	return v; 
 }
 
+
+/**
+ * \param[in] i
+ * \param[in] j
+ * \param[in] g
+ * \brief Permet de compter **les cellules voisines** de la cellules de coordonnées (i, j) en mode non cyclique
+ * \return Nombre de voisins v (int) en mode non cyclique
+ */
+int compte_voisins_vivants_en_mode_non_cyclique(int i,int j,grille g){
+	int v=0;
+	int l=g.nbl; 
+	int c=g.nbc;
+
+	for(int n=i-1; n<=i+1; i++){
+		for(int m=j-1; j<=j+1; j++){
+
+			if ( ( n>=0 && n<=l ) && ( m>=0 && m<=c ) )
+			{
+				v=v+est_vivante(n, m, g);
+			}
+		
+		}
+	}
+
+	return v;
+}
+
+
 /**
  * \param[out] g
  * \param[out] gc
@@ -39,7 +67,7 @@ void evolue (grille *g, grille *gc){
 	{
 		for (j=0; j<c; ++j)
 		{
-			v = compte_voisins_vivants (i, j, *gc);
+			v = compte_voisins_vivants_en_mode_cyclique(i, j, *gc);
 			if (est_vivante(i,j,*g)) 
 			{ // evolution d'une cellule vivante
 				if ( v!=2 && v!= 3 ) set_morte(i,j,*g);
