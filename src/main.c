@@ -10,15 +10,13 @@
 #include "io.h"
 #include "jeu.h"
 
-extern int vieillsement;
-
+extern int vieillissement;
 /**
  * \param[in] argc
  * \param[in] argv
  * \brief Permet de jouer au jeu de la vie
  */
 int main (int argc, char ** argv) {
-	
 	if (argc != 2 )
 	{
 		printf("usage : main <fichier grille>");

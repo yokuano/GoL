@@ -24,10 +24,12 @@ void init_grille_from_file (char * filename, grille* g);
 
 // rend vivante la cellule (i,j) de la grille g
 static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
+
 // rend morte la cellule (i,j) de la grille g
 static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
+
 // teste si la cellule (i,j) de la grille g est vivante
-static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] == 1;}
+static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] > 0;}
 
 // recopie gs dans gd (sans allocation)
 void copie_grille (grille gs, grille gd);

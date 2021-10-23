@@ -6,6 +6,8 @@
 #include "jeu.h"
 
 
+void print_gui(int evo, int aging);
+
 // affichage d'un trait horizontal
 void affiche_trait (int c);
 

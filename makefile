@@ -1,20 +1,32 @@
-main: ./src/main.o ./src/grille.o ./src/io.o ./src/jeu.o
-	gcc -o main ./src/main.o ./src/grille.o ./src/io.o ./src/jeu.o -lm
+.PHONY: clean doc dist all
 
-grille.o: ./src/grille.c ./src/grille.h
-	gcc -o ./src/grille.o -c grille.c -Wall
+CFLAGS+= -Wall
+CPPFLAGS += -I include
+OPATH = obj/
+DOCGEN= doxygen
+ARCHIVE= src makefile Doxyfile grilles README.md
+BIN= obj/ main *.tar.xz doc/
 
-io.o: ./src/io.c ./src/io.h ./src/grille.h ./src/jeu.h
-	gcc -o ./src/io.o -c ./src/io.c -Wall
 
-jeu.o: ./src/jeu.c ./src/jeu.h ./src/grille.h
-	gcc -o ./src/jeu.o -c ./src/jeu.c -Wall
+vpath %.c src/
 
-main.o: ./src/main.c ./src/grille.h ./src/jeu.h ./src/io.h
-	gcc -o ./src/main.o -c ./src/main.c -Wall 
+all: main
+
+main : $(addprefix $(OPATH), main.o grille.o io.o jeu.o)
+	$(CC) $(CFLAGS) -o $@ $^ -lm
+
+$(OPATH):
+	mkdir $@
+
+$(OPATH)%.o : %.c | $(OPATH)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+
+doc:
+	$(DOCGEN)
 
 clean:
-	rm -rf ./src/*.o main *.tar.xz doc
+	rm -rf $(BIN)
 
 dist:
-	tar -cJvf BendrissMohamedDris-GoL-version.tar.xz src makefile Doxyfile
+	tar -cJvf BendrissMohamedDris-GoL-version.tar.xz $(ARCHIVE)

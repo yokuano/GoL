@@ -1,6 +1,6 @@
 /**
  * \file io.c
- * \brief Ensemles de fonctions qui permettent **l'affichage de la grille**\n
+ * \brief Ensemles de fonctions qui permettent **l'affichage de la grille et le controle du jeu**\n
  * 		  A l'aide de ce code, on peut: afficher une ligne, une colonne, ainsi qu'une grille complète. Il est également possible d'effacer la grille.
  * \author Bendriss Mohamed Dris **Uniquement pour les commentaires**
  */
@@ -15,12 +15,11 @@ void print_gui(int evo, int aging){
 
 	printf("Nombre d'évolutions: %d\n", evo);
 
-	if(aging==0){
-		printf("Vieillsement: Désactivé");
-	}
-	else{
-		printf("Vieillsement: Activé");
-	}
+	if(aging==0) printf("Vieillsement: Désactivé\n");
+	else printf("Vieillsement: Activé\n");
+
+	//if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) printf("Voisinage: Cyclique");
+	//else printf("Voisinage: Non Cyclique");
 
 }
 
@@ -47,8 +46,15 @@ void affiche_trait (int c){
 void affiche_ligne (int c, int* ligne){
 	int i;
 
-	for (i=0; i<c; ++i) 
-		if (ligne[i] == 0 ) printf ("|   "); else printf ("| O ");
+	for (i=0; i<c; ++i){
+		if(vieillsement==1){
+			if (ligne[i] <= 0 ) printf ("|   "); else printf ("| %d ", (ligne[i]-1)%10);
+		}
+		else{
+			if (ligne[i] <= 0 ) printf ("|   "); else printf ("| 0 ");
+		}
+	}
+		
 	printf("|\n");
 	return;
 }
@@ -87,53 +93,79 @@ void efface_grille (grille g){
  */
 void debut_jeu(grille *g, grille *gc){
 
-	int timeEvo=1;
-	char c = getchar();
+	int timeEvo=0;
+	char c=getchar();
 	while (c != 'q') // touche 'q' pour quitter
 	{
-		char grille_name[64];
 		efface_grille(*g);
 		switch (c) {
 			case '\n' : 
+
 			{ // touche "entree" pour évoluer
 				system("clear");
-				print_gui(timeEvo, vieillsement);
-				evolue(g,gc);
-				affiche_grille(*g);
+				evolue(g, gc);
 				timeEvo++;
+				print_gui(timeEvo, vieillsement);
+				affiche_grille(*g);
 				break;
 			}
+
 			case 'n':
-				affiche_grille(*g);
+
+			{	affiche_grille(*g);
 				printf("Entrez le chemain de la grille: ");
+				char grille_name[25];
+				scanf(" %s", grille_name);
+				efface_grille(*g);
 				libere_grille(g);
 				libere_grille(gc);
 				timeEvo=0;
-				scanf(" %s", grille_name);
 				system("clear");
 				init_grille_from_file(grille_name, g);
 				alloue_grille(g->nbl, g->nbc, gc);
 				print_gui(timeEvo, vieillsement);
 				affiche_grille(*g);
-				break;
-			case 'v':
-				system("clear");
-				if(vieillsement==0){
-					vieillsement=1;
-					print_gui(timeEvo, vieillsement);
-					affiche_grille(*g);
-				}
-				else{
-					vieillsement=0;
-					print_gui(timeEvo, vieillsement);
-					affiche_grille(*g);
-				}
-				break;
-			default : 
-			{ // touche non traitée
-				printf("\n\e[1A");
+				getchar();
 				break;
 			}
+
+			case 'v':
+
+			{	
+				system("clear");
+				if(vieillsement==0) vieillsement=1;
+				else vieillsement=0;
+
+				print_gui(timeEvo, vieillsement);
+				affiche_grille(*g);
+				getchar();
+				break;
+			}
+
+			case 'c':
+
+			/*{
+				if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) compte_voisins_vivants=compte_voisins_vivants_en_mode_non_cyclique;
+				else compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
+
+				system("clear");
+				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
+				affiche_grille(*g);
+				getchar();
+				break;
+			}*/
+
+			default :
+
+			{ // touche non traitée
+				system("clear");
+				print_gui(timeEvo, vieillsement);
+				affiche_grille(*g);
+				getchar();
+				break;
+
+			}
+
 		}
 		c = getchar();
 	}

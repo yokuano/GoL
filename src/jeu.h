@@ -19,7 +19,10 @@ int compte_voisins_vivants_en_mode_cyclique(int i, int j, grille g);
 // les bords sont non cyclique
 int compte_voisins_vivants_en_mode_non_cyclique(int i,int j,grille g);
 
+
 // fait évoluer la grille g d'un pas de temps
 void evolue (grille *g, grille *gc);
+
+// int (*compte_voisins_vivants) (int, int, grille);
 
 #endif

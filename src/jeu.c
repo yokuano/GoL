@@ -6,6 +6,8 @@
 
 #include "jeu.h"
 
+int cyclique=1;
+
 /**
  * \param[in] i
  * \param[in] j
@@ -54,24 +56,24 @@ int compte_voisins_vivants_en_mode_non_cyclique(int i,int j,grille g){
 	return v;
 }
 
-void calcul_vieillsement(grille g, grille gAge){
+void calcul_vieillissement(grille g){
 
 	for(int i=0; i<g.nbl; i++){
 		for(int j=0; j<g.nbc; j++){
 
 			if(est_vivante(i, j, g)){
-				gAge.cellules[i][j]++;
+				g.cellules[i][j]++;
 			}
-
-			else{
-				gAge.cellules[i][j]=0;
-			}
-
+			else g.cellules[i][j]=0;
 		}
 	}
-
 }
 
+
+
+void define_cyclique_non_cyclique(){
+	// compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
+}
 
 /**
  * \param[out] g
@@ -81,6 +83,7 @@ void calcul_vieillsement(grille g, grille gAge){
 void evolue (grille *g, grille *gc){
 	copie_grille (*g,*gc); // copie temporaire de la grille
 	int i,j,l=g->nbl, c = g->nbc,v;
+	calcul_vieillissement(*g);
 	for (i=0; i<l; i++)
 	{
 		for (j=0; j<c; ++j)
@@ -90,10 +93,11 @@ void evolue (grille *g, grille *gc){
 			{ // evolution d'une cellule vivante
 				if ( v!=2 && v!= 3 ) set_morte(i,j,*g);
 			}
-			else 
+			else if ( v==3 )
 			{ // evolution d'une cellule morte
-				if ( v==3 ) set_vivante(i,j,*g);
+				set_vivante(i,j,*g);
 			}
+			else set_morte(i, j, *g);
 		}
 	}
 	return;
