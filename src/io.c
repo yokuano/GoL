@@ -9,7 +9,7 @@
 
 #include "io.h"
 
-int vieillsement=0;
+int vieillsement=1;
 
 void print_gui(int evo, int aging){
 
@@ -102,9 +102,10 @@ void debut_jeu(grille *g, grille *gc){
 			case '\n' : 
 
 			{ // touche "entree" pour évoluer
-				system("clear");
 				evolue(g, gc);
 				timeEvo++;
+				efface_grille(*g);
+				system("clear");
 				print_gui(timeEvo, vieillsement);
 				affiche_grille(*g);
 				break;
@@ -168,6 +169,7 @@ void debut_jeu(grille *g, grille *gc){
 
 		}
 		c = getchar();
+		
 	}
 	return;	
 }

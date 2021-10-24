@@ -56,15 +56,15 @@ int compte_voisins_vivants_en_mode_non_cyclique(int i,int j,grille g){
 	return v;
 }
 
-void calcul_vieillissement(grille g){
+void calcul_vieillissement(grille *g){
 
-	for(int i=0; i<g.nbl; i++){
-		for(int j=0; j<g.nbc; j++){
+	for(int i=0; i<g->nbl; i++){
+		for(int j=0; j<g->nbc; j++){
 
-			if(est_vivante(i, j, g)){
-				g.cellules[i][j]++;
+			if(est_vivante(i, j, *g)){
+				g->cellules[i][j]++;
 			}
-			else g.cellules[i][j]=0;
+			else g->cellules[i][j]=0;
 		}
 	}
 }
@@ -83,10 +83,10 @@ void define_cyclique_non_cyclique(){
 void evolue (grille *g, grille *gc){
 	copie_grille (*g,*gc); // copie temporaire de la grille
 	int i,j,l=g->nbl, c = g->nbc,v;
-	calcul_vieillissement(*g);
+	calcul_vieillissement(g);
 	for (i=0; i<l; i++)
 	{
-		for (j=0; j<c; ++j)
+		for (j=0; j<c; j++)
 		{
 			v = compte_voisins_vivants_en_mode_cyclique(i, j, *gc);
 			if (est_vivante(i,j,*g)) 
