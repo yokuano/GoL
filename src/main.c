@@ -27,6 +27,7 @@ int main (int argc, char ** argv) {
 	init_grille_from_file(argv[1],&g);
 	alloue_grille (g.nbl, g.nbc, &gc);
 	system("clear");
+	print_gui(0, 0);
 	affiche_grille(g);
 	
 	debut_jeu(&g, &gc);

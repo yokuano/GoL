@@ -50,6 +50,7 @@ Maintenant que vous savez comment le jeu fonctionne, il est temps **d'utiliser l
 ./main ./grilles/grille[n].txt
 ```
 Le terminal ressemblera alors a ca:
+
 ![](https://media.discordapp.net/attachments/879749492868526150/901802847807606895/unknown.png)
 
 Les cellules contenant un 'O' sont **les cellules vivantes**. Les cellules vièrges sont quant à elles **mortes**.\
@@ -57,12 +58,14 @@ A partir de la, un ensemble d'options vous sont offertes pour faire évoluer le 
 
 ### Faire évoluer l'environement
 Il est possible de **faire évoluer l'environement en appuyant sur la touche entrée**, par exemple, si on appuye sur la touche entrée, on obtient ce resultat:
+
 ![](https://media.discordapp.net/attachments/879749492868526150/901803303355166730/unknown.png)
 
 Le nombre d'évolution à augmenté de 1, et notre environement a suivi les règles d'évolution énnoncé plus haut.
 
 ### Activer/désactiver le villeilssement des cellules
 Vous avez la possibilité **d'afficher l'age des cellules présente dans votre grille**. Il vous suffit **d'appuyer sur la touche v** puis entrée:
+
 ![](https://media.discordapp.net/attachments/879749492868526150/901810177420976148/unknown.png)
 
 Les cellules **d'age 0 sont celles qui viennent de naitre**. Les cellules **d'age 1 sont celle qui on vecu une évoultion**, et ainsi de de suite..
@@ -70,6 +73,7 @@ Les cellules **d'age 0 sont celles qui viennent de naitre**. Les cellules **d'ag
 ### Charger une nouvelle grille
 
 Vous en avez marre de la grille actuellement sur votre terminal? Ca tombre bien, vous avez la possibilité de **charger une nouvelle grille, sans relancer l'exécutable**. Pour faire ca, **appuyez sur la touche n** puis entrez. Votre terminal ressemblera à ca:
+
 ![](https://media.discordapp.net/attachments/879749492868526150/901817907946856458/unknown.png)
 
 Ensuite, entrez le **chemin vers la grille** que vous souhaitez charger:
@@ -77,6 +81,7 @@ Ensuite, entrez le **chemin vers la grille** que vous souhaitez charger:
 Entrez le chemain de la grille: ./grilles/grille[n].txt
 ```
 Appuyez sur entrée, et voila! Une grille toute neuve:
+
 ![](https://media.discordapp.net/attachments/879749492868526150/901818848125284402/unknown.png)
 
 ### Activer/désactiver le voisinage cyclique

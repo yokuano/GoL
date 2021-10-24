@@ -11,16 +11,35 @@
  */
 static inline int modulo(int i, int m) {return (i+m)%m;}
 
-// compte le nombre de voisins vivants de la cellule (i,j)
-// les bords sont cycliques.
+/**
+ * \param[in] i
+ * \param[in] j
+ * \param[in] g
+ * \brief Permet de compter **les cellules voisines** de la cellules de coordonnées (i, j) en mode cyclique
+ * \return Nombre de voisins v (int) en mode cyclique
+ */
 int compte_voisins_vivants_en_mode_cyclique(int i, int j, grille g);
 
-// compte le nombre de voisins vivants de la cellule (i,j)
-// les bords sont non cyclique
+/**
+ * \param[in] i
+ * \param[in] j
+ * \param[in] g
+ * \brief Permet de compter **les cellules voisines** de la cellules de coordonnées (i, j) en mode non cyclique
+ * \return Nombre de voisins v (int) en mode non cyclique
+ */
 int compte_voisins_vivants_en_mode_non_cyclique(int i,int j,grille g);
 
+/**
+ * \param[in] g
+ * \brief Permet de calculer l'age d'une cellule à l'état t+1
+ */
+void calcul_vieillissement(grille *g);
 
-// fait évoluer la grille g d'un pas de temps
+/**
+ * \param[out] g
+ * \param[out] gc
+ * \brief Fait **évolué** la grille g
+ */
 void evolue (grille *g, grille *gc);
 
 // int (*compte_voisins_vivants) (int, int, grille);

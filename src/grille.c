@@ -6,12 +6,7 @@
  */
 #include "grille.h"
 
-/**
- * \param[in] l 
- * \param[in] c
- * \param[out] g
- * \brief Alloue une **grille** de taille **l*c**, et initialise **toutes les cellules à mortes**
- */
+
 void alloue_grille(int l, int c, grille* g){
 
 	g->nbc=c;
@@ -22,10 +17,7 @@ void alloue_grille(int l, int c, grille* g){
 	}
 }
 
-/**
- * \brief **Libère** la grille mise en paramètre de l'espace mémoire
- * \param[out] g
- */
+
 void libere_grille (grille* g){
 	
 	for(int i=0; i<g->nbl; i++){
@@ -35,11 +27,7 @@ void libere_grille (grille* g){
 	return;
 }
 
-/**
- * \param[in] filename
- * \param[out] g
- * \brief **Créer** une grille **à partir d'un fichier** mis en argument filename
- */
+
 void init_grille_from_file (char * filename, grille* g){
 	FILE * pfile = NULL;
 	pfile = fopen(filename, "r");
@@ -63,11 +51,6 @@ void init_grille_from_file (char * filename, grille* g){
 	return;
 }
 
-/**
- * \param[in] gs
- * \param[out] gd
- * \brief **Copie** la grille **gs** dans la grille **gd**
- */
 void copie_grille (grille gs, grille gd){
 	int i, j;
 	for (i=0; i<gs.nbl; ++i) for (j=0; j<gs.nbc; ++j) gd.cellules[i][j] = gs.cellules[i][j];

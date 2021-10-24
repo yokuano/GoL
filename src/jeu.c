@@ -8,13 +8,6 @@
 
 int cyclique=1;
 
-/**
- * \param[in] i
- * \param[in] j
- * \param[in] g
- * \brief Permet de compter **les cellules voisines** de la cellules de coordonnées (i, j) en mode cyclique
- * \return Nombre de voisins v (int) en mode cyclique
- */
 int compte_voisins_vivants_en_mode_cyclique(int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
 	v+= est_vivante(modulo(i-1,l),modulo(j-1,c),g);
@@ -29,14 +22,6 @@ int compte_voisins_vivants_en_mode_cyclique(int i, int j, grille g){
 	return v; 
 }
 
-
-/**
- * \param[in] i
- * \param[in] j
- * \param[in] g
- * \brief Permet de compter **les cellules voisines** de la cellules de coordonnées (i, j) en mode non cyclique
- * \return Nombre de voisins v (int) en mode non cyclique
- */
 int compte_voisins_vivants_en_mode_non_cyclique(int i,int j,grille g){
 	int v=0;
 	int l=g.nbl; 
@@ -75,11 +60,6 @@ void define_cyclique_non_cyclique(){
 	// compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
 }
 
-/**
- * \param[out] g
- * \param[out] gc
- * \brief Fait **évolué** la grille g
- */
 void evolue (grille *g, grille *gc){
 	copie_grille (*g,*gc); // copie temporaire de la grille
 	int i,j,l=g->nbl, c = g->nbc,v;
