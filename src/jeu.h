@@ -42,6 +42,6 @@ void calcul_vieillissement(grille *g);
  */
 void evolue (grille *g, grille *gc);
 
-// int (*compte_voisins_vivants) (int, int, grille);
+int (*compte_voisins_vivants) (int, int, grille);
 
 #endif

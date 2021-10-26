@@ -6,7 +6,7 @@
 #include "jeu.h"
 
 
-void print_gui(int evo, int aging);
+void print_gui(int evo, int aging, int (*compte_voisins_vivants) (int, int, grille));
 
 
 /**

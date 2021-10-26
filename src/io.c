@@ -11,15 +11,15 @@
 
 int vieillsement=0;
 
-void print_gui(int evo, int aging){
+void print_gui(int evo, int aging, int (*compte_voisins_vivants) (int, int, grille)){
 
 	printf("Nombre d'évolutions: %d\n", evo);
 
 	if(aging==0) printf("Vieillsement: Désactivé\n");
 	else printf("Vieillsement: Activé\n");
 
-	//if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) printf("Voisinage: Cyclique");
-	//else printf("Voisinage: Non Cyclique");
+	if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) printf("Voisinage: Cyclique");
+	else printf("Voisinage: Non Cyclique");
 
 }
 
@@ -79,7 +79,7 @@ void debut_jeu(grille *g, grille *gc){
 				timeEvo++;
 				efface_grille(*g);
 				system("clear");
-				print_gui(timeEvo, vieillsement);
+				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g);
 				break;
 			}
@@ -97,7 +97,7 @@ void debut_jeu(grille *g, grille *gc){
 				system("clear");
 				init_grille_from_file(grille_name, g);
 				alloue_grille(g->nbl, g->nbc, gc);
-				print_gui(timeEvo, vieillsement);
+				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g);
 				getchar();
 				break;
@@ -110,7 +110,7 @@ void debut_jeu(grille *g, grille *gc){
 				if(vieillsement==0) vieillsement=1;
 				else vieillsement=0;
 
-				print_gui(timeEvo, vieillsement);
+				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g);
 				getchar();
 				break;
@@ -118,7 +118,7 @@ void debut_jeu(grille *g, grille *gc){
 
 			case 'c':
 
-			/*{
+			{
 				if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) compte_voisins_vivants=compte_voisins_vivants_en_mode_non_cyclique;
 				else compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
 
@@ -127,13 +127,13 @@ void debut_jeu(grille *g, grille *gc){
 				affiche_grille(*g);
 				getchar();
 				break;
-			}*/
+			}
 
 			default :
 
 			{ // touche non traitée
 				system("clear");
-				print_gui(timeEvo, vieillsement);
+				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g);
 				getchar();
 				break;
