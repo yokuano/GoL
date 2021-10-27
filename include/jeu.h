@@ -15,7 +15,7 @@
  * \brief modulo modifié pour traiter correctement les bords i=0 et j=0 dans le calcul des voisins avec bords cycliques
  * \return (i+m)%m
  */
-static inline int modulo(int i, int m) {return (i+m)%m;}
+static inline int modulo(int i, int m) {return (i+m+1)%m;}
 
 /**
  * \param[in] i

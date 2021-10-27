@@ -10,7 +10,6 @@
 #include "io.h"
 #include "jeu.h"
 
-
 extern int vieillissement;
 /**
  * \param[in] argc

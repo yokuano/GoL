@@ -5,7 +5,6 @@
  */
 #include "grille.h"
 
-
 void alloue_grille(int l, int c, grille* g){
 
 	g->nbc=c;
