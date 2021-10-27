@@ -1,3 +1,9 @@
+/**
+ * \file grille.h
+ * \brief Bibliothèque contenant les fonctions de grille.h
+ * \author Bendriss Mohamed Dris
+ */
+
 #ifndef __GRILLE_H
 #define __GRILLE_H
 
@@ -34,13 +40,28 @@ void libere_grille (grille* g);
  */
 void init_grille_from_file (char * filename, grille* g);
 
-// rend vivante la cellule (i,j) de la grille g
+/**
+ * \param[in] i
+ * \param[in] j
+ * \param[out] g
+ * \brief Rend **vivante** la cellule (i, j) de la grille g
+ */
 static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
 
-// rend morte la cellule (i,j) de la grille g
+/**
+ * \param[in] i
+ * \param[in] j
+ * \param[out] g
+ * \brief Rend **morte** la cellule (i, j) de la grille g
+ */
 static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
 
-// teste si la cellule (i,j) de la grille g est vivante
+/**
+ * \param[in] i
+ * \param[in] j
+ * \param[in] g
+ * \brief **Teste** si la cellule (i, j) est **vivante**
+ */
 static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] > 0;}
 
 /**

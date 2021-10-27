@@ -1,7 +1,7 @@
 /**
  * \file main.c
  * \brief Fonction principale qui permet de **lancer le jeu**
- * \author Bendriss Mohamed Dris **uniquement pour les fonctions allouer_grille et libere grille**
+ * \author Bendriss Mohamed Dris
  */
 
 #include <stdio.h>
@@ -10,6 +10,7 @@
 #include "io.h"
 #include "jeu.h"
 
+
 extern int vieillissement;
 /**
  * \param[in] argc
@@ -17,6 +18,7 @@ extern int vieillissement;
  * \brief Permet de jouer au jeu de la vie
  */
 int main (int argc, char ** argv) {
+
 	if (argc != 2 )
 	{
 		printf("usage : main <fichier grille>");
@@ -35,4 +37,5 @@ int main (int argc, char ** argv) {
 	libere_grille(&g);
 	libere_grille(&gc);
 	return 0;
+	
 }
