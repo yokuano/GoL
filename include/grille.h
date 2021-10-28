@@ -1,6 +1,6 @@
 /**
  * \file grille.h
- * \brief Bibliothèque contenant les fonctions de grille.h
+ * \brief Bibliothèque contenant les fonctions de grille.c
  * \author Bendriss Mohamed Dris
  */
 
@@ -13,6 +13,7 @@
 
 /**
  * \struct grille
+ * \brief Structure qui représente une grille\n
  * **nbl**: nombre de lignes\n
  * **nbc**: nombre de colonnes\n
  * **cellules**: tableau d'entiers à 2 dimensions\n

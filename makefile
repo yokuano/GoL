@@ -1,11 +1,11 @@
 .PHONY: clean doc dist all
 
 CFLAGS+= -Wall -g
-CPPFLAGS += -I include
+CPPFLAGS+= -I include
 OPATH = obj/
-DOCGEN= doxygen
-ARCHIVE= src makefile Doxyfile grilles README.md include
-BIN= obj/ main *.tar.xz doc/
+DOC= doxygen
+ZIP= src makefile Doxyfile grilles README.md include
+DEL= obj/ main *.tar.xz doc/
 
 
 vpath %.c src/
@@ -13,20 +13,19 @@ vpath %.h include/
 
 all: main
 
-main : $(addprefix $(OPATH), main.o grille.o io.o jeu.o)
+main : main.o grille.o io.o jeu.o
+	mkdir -p $(OPATH)
 	$(CC) $(CFLAGS) -o $@ $^ -lm
+	mv *.o $(OPATH)
 
-$(OPATH):
-	mkdir $@
-
-$(OPATH)%.o : %.c | $(OPATH)
+$(OPATH)%.o : %.c %.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 doc:
-	$(DOCGEN)
+	$(DOC)
 
 clean:
-	rm -rf $(BIN)
+	rm -rf $(DEL)
 
 dist:
-	tar -cJvf BendrissMohamedDris-GoL-v2.8.0.tar.xz $(ARCHIVE)
+	tar -cJvf BendrissMohamedDris-GoL-v2.8.0.tar.xz $(ZIP)

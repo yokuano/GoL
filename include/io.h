@@ -1,6 +1,6 @@
 /**
  * \file io.h
- * \brief Bibliothèque contenant les fonctions de io.h
+ * \brief Bibliothèque contenant les fonctions de io.c
  * \author Bendriss Mohamed Dris
  */
 
