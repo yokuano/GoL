@@ -75,9 +75,9 @@ Entrez le chemain de la grille: ./grilles/grille[n].txt
 ### Activer/désactiver le vieillissement des cellules
 Vous avez la possibilité **d'afficher l'age des cellules présente dans votre grille**. Il vous suffit **d'appuyer sur la touche v puis entrée**:
 
-![](https://media.discordapp.net/attachments/879749492868526150/902872568921485322/old_or_not_old.gif)  
+![](https://cdn.discordapp.com/attachments/879749492868526150/903612816953589790/ezgif.com-gif-maker.gif)  
 Les cellules **d'age 0 sont celles qui viennent de naitre**. Les cellules **d'age 1 sont celle qui on vecu une évoultion**, et ainsi de de suite..  
-Lorsque le vieillissement est activé, une cellule **meurt si elle dépasse 8 pas de temps**. (La video d'au dessus n'illustre pas cette règle)
+Lorsque le vieillissement est activé, une cellule **meurt si elle dépasse 8 évolutions (8 pas de temps après sa naissance)**.
 
 ### Activer/désactiver le voisinage cyclique
 

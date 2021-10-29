@@ -15,7 +15,7 @@
 #define BLUE "\x1b[34m" 
 #define BLUE_END "\x1b[0m" 
 
-int vieillsement=0;
+extern int vieillsement;
 
 
 void print_gui(int evo, int aging, int (*compte_voisins_vivants) (int, int, grille)){
@@ -53,7 +53,7 @@ void affiche_ligne (int c, int* ligne){
 		if(vieillsement==1){
 			if (ligne[i] <= 0 ) LOG_BLACK("|   "); 
 			else {
-				LOG_BLACK("|"); printf(" %d ", (ligne[i]-1)%10);
+				LOG_BLACK("|"); printf(" %d ", (ligne[i]-1));
 			}
 		}
 		else{

@@ -6,6 +6,7 @@
 
 #include "jeu.h"
 
+int vieillsement=0;
 
 int compte_voisins_vivants_en_mode_cyclique(int i, int j, grille g){
 
@@ -57,10 +58,11 @@ void calcul_vieillissement(grille *g){
 	for(int i=0; i<g->nbl; i++){
 		for(int j=0; j<g->nbc; j++){
 
-			if(est_vivante(i, j, *g)){
+			if(est_vivante(i, j, *g) && vieillsement==1){
 				g->cellules[i][j]++;
 			}
-			else g->cellules[i][j]=0;
+			if(g->cellules[i][j]>9) set_morte(i, j, *g);
+
 		}
 	}
 

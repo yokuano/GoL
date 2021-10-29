@@ -63,7 +63,7 @@ static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
  * \param[in] g
  * \brief **Teste** si la cellule (i, j) est **vivante**
  */
-static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] > 0;}
+static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j]>=1 && g.cellules[i][j]<=9;}
 
 /**
  * \param[in] gs
