@@ -72,11 +72,12 @@ Entrez le chemain de la grille: ./grilles/grille[n].txt
 ```
 ![](https://media.discordapp.net/attachments/879749492868526150/902863472931516426/load_new_grille.gif)
 
-### Activer/désactiver le villeilssement des cellules
+### Activer/désactiver le vieillissement des cellules
 Vous avez la possibilité **d'afficher l'age des cellules présente dans votre grille**. Il vous suffit **d'appuyer sur la touche v puis entrée**:
 
 ![](https://media.discordapp.net/attachments/879749492868526150/902872568921485322/old_or_not_old.gif)  
-Les cellules **d'age 0 sont celles qui viennent de naitre**. Les cellules **d'age 1 sont celle qui on vecu une évoultion**, et ainsi de de suite..
+Les cellules **d'age 0 sont celles qui viennent de naitre**. Les cellules **d'age 1 sont celle qui on vecu une évoultion**, et ainsi de de suite..  
+Lorsque le vieillissement est activé, une cellule **meurt si elle dépasse 8 pas de temps**. (La video d'au dessus n'illustre pas cette règle)
 
 ### Activer/désactiver le voisinage cyclique
 
@@ -96,13 +97,13 @@ Si vous souhaitez quitter le programme, il suffit **d'appuyer sur la touche q pu
 ```
 make doc
 ```
-Une fois cela fait, un dossier doc sera créer, ouvrez le fichier **index.html** pour avoir accès à la doccumentation
+Une fois cela fait, **un dossier doc** sera créer, ouvrez le fichier **index.html** dans ce dossier pour avoir accès à la doccumentation
 
 - **Créer une archive tar.gz**
 ```
 make dist
 ```
-L'archive contient les éléments suivants:** /src makefile Doxyfile /grilles README.md**
+L'archive contient les éléments suivants: **/src makefile Doxyfile /grilles README.md**
 
 - **Supprimer les fichiers objets, la doc, l'archive et l'executable du répertoire courant**
 ```
