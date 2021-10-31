@@ -28,5 +28,4 @@ clean:
 	rm -rf $(DEL)
 
 dist:
-	tar -cJvf BendrissMohamedDris-GoL-v2.9.1.tar.xz $(ZIP)
-	
+	tar -cJvf BendrissMohamedDris-GoL-v2.9.2.tar.xz $(ZIP)
