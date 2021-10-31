@@ -1,4 +1,4 @@
-.PHONY: clean doc dist all
+.PHONY: clean docs dist all
 
 CFLAGS+= -Wall -g
 CPPFLAGS+= -I include
