@@ -95,7 +95,7 @@ Si vous souhaitez quitter le programme, il suffit **d'appuyer sur la touche q pu
 
 - **Générer la doccumentation**
 ```
-make doc
+make docs
 ```
 Une fois cela fait, **un dossier doc** sera créer, ouvrez le fichier **index.html** dans ce dossier pour avoir accès à la doccumentation
 

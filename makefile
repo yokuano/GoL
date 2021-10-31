@@ -21,11 +21,11 @@ main : main.o grille.o io.o jeu.o
 $(OPATH)%.o : %.c %.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
-doc:
+docs:
 	$(DOC)
 
 clean:
 	rm -rf $(DEL)
 
 dist:
-	tar -cJvf BendrissMohamedDris-GoL-v2.8.0.tar.xz $(ZIP)
+	tar -cJvf BendrissMohamedDris-GoL-v2.9.0.tar.xz $(ZIP)
