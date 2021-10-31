@@ -59,3 +59,4 @@ void efface_grille (grille g);
 void debut_jeu(grille *g, grille *gc);
 
 #endif
+

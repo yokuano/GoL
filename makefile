@@ -29,3 +29,4 @@ clean:
 
 dist:
 	tar -cJvf BendrissMohamedDris-GoL-v2.9.1.tar.xz $(ZIP)
+	

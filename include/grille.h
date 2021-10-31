@@ -72,4 +72,5 @@ static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j]>=1
  */
 void copie_grille (grille gs, grille gd);
 
+
 #endif
