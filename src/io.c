@@ -51,13 +51,15 @@ void affiche_ligne (int c, int* ligne){
 	for (i=0; i<c; ++i){
 
 		if(vieillsement==1){
-			if (ligne[i] <= 0 ) LOG_BLACK("|   "); 
+			if (ligne[i] == 0 ) LOG_BLACK("|   ");
+			else if (ligne[i] == -1) {LOG_BLACK("|"); printf(" X ");}
 			else {
 				LOG_BLACK("|"); printf(" %d ", (ligne[i]-1));
 			}
 		}
 		else{
-			if (ligne[i] <= 0 ) LOG_BLACK("|   "); 
+			if (ligne[i] == 0 ) LOG_BLACK("|   "); 
+			else if (ligne[i] == -1 ) {LOG_BLACK("|"); printf(" X ");}
 			else {
 				LOG_BLACK("|"); printf(BLUE " O " BLUE_END);
 			}

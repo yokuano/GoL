@@ -58,11 +58,12 @@ void calcul_vieillissement(grille *g){
 	for(int i=0; i<g->nbl; i++){
 		for(int j=0; j<g->nbc; j++){
 
-			if(est_vivante(i, j, *g) && vieillsement==1){
-				g->cellules[i][j]++;
+			if(est_viable(i, j, *g)){
+				if(est_vivante(i, j, *g) && vieillsement==1){
+					g->cellules[i][j]++;
+				}
+				if(g->cellules[i][j]>9) set_morte(i, j, *g);
 			}
-			if(g->cellules[i][j]>9) set_morte(i, j, *g);
-
 		}
 	}
 
@@ -78,18 +79,18 @@ void evolue (grille *g, grille *gc){
 	{
 		for (j=0; j<c; j++)
 		{
-
-			v = (*compte_voisins_vivants)(i, j, *gc);
-			if (est_vivante(i,j,*g)) 
-			{ // evolution d'une cellule vivante
-				if ( v!=2 && v!= 3 ) set_morte(i,j,*g);
+			if(est_viable(i, j, *gc)){
+				v = (*compte_voisins_vivants)(i, j, *gc);
+				if (est_vivante(i,j,*g)) 
+				{ // evolution d'une cellule vivante
+					if ( v!=2 && v!= 3 ) set_morte(i,j,*g);
+				}
+				else if ( v==3 )
+				{ // evolution d'une cellule morte
+					set_vivante(i,j,*g);
+				}
+				else set_morte(i, j, *g);
 			}
-			else if ( v==3 )
-			{ // evolution d'une cellule morte
-				set_vivante(i,j,*g);
-			}
-			else set_morte(i, j, *g);
-			
 		}
 	}
 	return;
