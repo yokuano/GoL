@@ -1,0 +1,11 @@
+# EXE folder
+bin/
+
+# Object files
+obj/ 
+
+# tar.gz
+*.tag.gz
+
+# doc
+doc/
