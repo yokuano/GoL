@@ -6,7 +6,7 @@ OPATH = obj/
 BPATH = bin/
 DOC= doxygen
 ZIP= src makefile Doxyfile grilles README.md include
-DEL= obj/ bin/ *.tar.xz doc/
+DEL= obj bin dist doc
 
 vpath %.c src/
 vpath %.h include/
@@ -31,5 +31,5 @@ clean:
 
 dist:
 	mkdir -p dist
-	tar -cJvf BendrissMohamedDris-GoL-v3.0.0.tar.xz $(ZIP)
+	tar -cJvf BendrissMohamedDris-GoL-v3.0.1.tar.xz $(ZIP)
 	mv *.xz dist

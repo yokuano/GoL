@@ -9,25 +9,28 @@
 #include "io.h" 
 
 
-#define BLACK "\x1b[30m" 
-#define COL_END "\x1b[0m" 
-#define LOG_BLACK(X) printf("%s%s%s",BLACK,X,COL_END)
-#define BLUE "\x1b[34m" 
-#define BLUE_END "\x1b[0m" 
+#define BLACK "\x1b[30m" 			// Color for the grid
+#define RED "\x1b[31m" 				// Color for cell that cannot develop life
+#define BLUE "\x1b[34m"  			// Color for cells when aging is disabled
+#define GREEN "\x1b[32m" 			// Color for the cells when aging is enabled
+#define COL_END "\x1b[0m"			// Used to stop the color change (rest color to default)
+
+#define LOG_COLOR(string, color) printf("%s%s%s",color, string, COL_END) // Prints the string in the color passed as argument 
+#define LOG_COLOR_INTEGER(int, color) printf(color " %d " COL_END, int) // Prints the INTEGER int in the color passed as argument
 
 extern int vieillsement;
 
 
 void print_gui(int evo, int aging, int (*compte_voisins_vivants) (int, int, grille)){
 
-	system("clear");
+	system("clear");																						// Netoyage du terminal
 
-	printf("Nombre d'évolutions: %d\n", evo);
+	printf("Nombre d'évolutions: %d\n", evo);																// Affichage nb evo
 
-	if(aging==0) printf("Vieillissement: Désactivé\n");
+	if(aging==0) printf("Vieillissement: Désactivé\n");														// Affichage vieillssement
 	else printf("Vieillissement: Activé\n");
 
-	if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) printf("Voisinage: Cyclique");
+	if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) printf("Voisinage: Cyclique");		// Affichage mode cyclique ou non cyclique
 	else printf("Voisinage: Non Cyclique");
 
 	printf("\n");
@@ -37,8 +40,9 @@ void print_gui(int evo, int aging, int (*compte_voisins_vivants) (int, int, gril
 void affiche_trait (int c){
 
 	int i;
-	for (i=0; i<c; ++i) LOG_BLACK("|---");
-	LOG_BLACK("|\n");
+	for (i=0; i<c; ++i) 
+		LOG_COLOR("|---", BLACK);
+	LOG_COLOR("|\n", BLACK);
 	return;
 
 }
@@ -50,24 +54,37 @@ void affiche_ligne (int c, int* ligne){
 
 	for (i=0; i<c; ++i){
 
-		if(vieillsement==1){
-			if (ligne[i] == 0 ) LOG_BLACK("|   ");
-			else if (ligne[i] == -1) {LOG_BLACK("|"); printf(" X ");}
-			else {
-				LOG_BLACK("|"); printf(" %d ", (ligne[i]-1));
+		if(vieillsement==1){										// Vieillsement activé
+
+			if (ligne[i] == 0 ) 										// Cas d'une cellule morte
+				LOG_COLOR("|   ", BLACK); 								
+			else if (ligne[i] == -1) {									// Cas d'une cellule non viable
+				LOG_COLOR("|", BLACK); 
+				LOG_COLOR(" X ", RED);}											
+			else {														// Cas d'une cellule vivante
+				LOG_COLOR("|", BLACK); 
+				LOG_COLOR_INTEGER(ligne[i]-1, GREEN);				
 			}
+
 		}
-		else{
-			if (ligne[i] == 0 ) LOG_BLACK("|   "); 
-			else if (ligne[i] == -1 ) {LOG_BLACK("|"); printf(" X ");}
-			else {
-				LOG_BLACK("|"); printf(BLUE " O " BLUE_END);
+
+		else{														// Vieillsement désactivé
+
+			if (ligne[i] == 0 ) 										// Cas d'une cellule morte
+				LOG_COLOR("|   ", BLACK); 								
+			else if (ligne[i] == -1 ) {									// Cas d'une cellule non viable
+				LOG_COLOR("|", BLACK); 									
+				LOG_COLOR(" X ", RED);}									
+			else {														// Cas d'une cellule morte
+				LOG_COLOR("|", BLACK); 
+				LOG_COLOR(" O ", BLUE);					
 			}
+
 		}
 
 	}
 		
-	LOG_BLACK("|\n");
+	LOG_COLOR("|\n", BLACK);
 	return;
 }
 
@@ -76,10 +93,12 @@ void affiche_grille (grille g){
 	int i, l=g.nbl, c=g.nbc;
 	printf("\n");
 	affiche_trait(c);
+
 	for (i=0; i<l; ++i) {
 		affiche_ligne(c, g.cellules[i]);
 		affiche_trait(c);
 	}	
+
 	printf("\n"); 
 	return;
 
@@ -97,68 +116,68 @@ void debut_jeu(grille *g, grille *gc){
 
 	while (c != 'q') // touche 'q' pour quitter
 	{
-
 		efface_grille(*g);
 		switch (c) {
+
 			case '\n' : 
 
-			{	evolue(g, gc);
+				evolue(g, gc);
 				timeEvo++;
 				efface_grille(*g);
 				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g);
 				break;
-			}
-
+			
 			case 'n':
 
-			{	print_gui(timeEvo, vieillsement, compte_voisins_vivants);
+				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g); //afficher la grille pour éviter les overlap d'affichage
 				printf("Entrez le chemain de la grille: ");
+
 				char grille_name[25];
 				scanf(" %s", grille_name);
 				efface_grille(*g);
 				libere_grille(g);
 				libere_grille(gc);
+
 				timeEvo=0;
 				init_grille_from_file(grille_name, g);
 				alloue_grille(g->nbl, g->nbc, gc);
+				
 				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g);
 				getchar();
 				break;
-			}
+			
 
 			case 'v':
 
-			{	if(vieillsement==0) vieillsement=1;
+				if(vieillsement==0) vieillsement=1;
 				else vieillsement=0;
 
 				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g);
 				getchar();
 				break;
-			}
+			
 
 			case 'c':
 
-			{	if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) compte_voisins_vivants=compte_voisins_vivants_en_mode_non_cyclique;
+				if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) compte_voisins_vivants=compte_voisins_vivants_en_mode_non_cyclique;
 				else compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
 
 				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g);
 				getchar();
 				break;
-			}
+			
 
 			default :
 
-			{	print_gui(timeEvo, vieillsement, compte_voisins_vivants);
+				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
 				affiche_grille(*g);
 				getchar();
 				break;
-			}
-
 		}
 		c = getchar();
 		
