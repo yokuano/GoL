@@ -5,7 +5,7 @@ bin/
 obj/ 
 
 # tar.gz
-*.tag.xz
+dist/
 
 # doc
 doc/
