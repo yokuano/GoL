@@ -17,12 +17,12 @@ ifeq (TEXTE,$(MODE))
 main : main.o grille.o io.o jeu.o
 	mkdir -p $(OPATH)
 	mkdir -p $(BPATH)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ -lm
 	mv *.o $(OPATH)
 	mv main $(BPATH)
 
 $(OPATH)%.o : %.c %.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
+	$(CC) -Iinclude $(CFLAGS) -c -o $@ $<
 
 else
 

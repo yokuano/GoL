@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include </usr/include/cairo/cairo.h>
-#include </usr/include/cairo/cairo-xlib.h>
+#include <cairo.h>
+#include <cairo-xlib.h>
 #include <X11/Xlib.h>
 #include "jeu.h"
 
