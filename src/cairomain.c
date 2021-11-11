@@ -49,7 +49,12 @@ int main (int argc, char *argv[]){
 		XNextEvent(dpy, &e);
 		if(e.type==Expose && e.xexpose.count<1) {
 			print_grille(cs, &g);
-		} else if(e.type==ButtonPress);
+		} 
+		if(e.type==ButtonPress && e.xbutton.button == Button1){
+			evolue(&g,&gc);
+			print_grille(cs, &g);
+		}
+		else if(e.type==ButtonPress);
 
 	}
 

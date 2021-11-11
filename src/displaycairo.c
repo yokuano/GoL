@@ -49,9 +49,6 @@ void print_grille(cairo_surface_t *surface, grille *g){
     cairo_set_source_rgb (cr, 1, 1, 1);
 	cairo_paint(cr);
 
-    print_colonnes(surface, cr, g, 10, 10);
-    print_lignes(surface, cr, g, 10, 10);
-
     for(int i=0; i<g->nbl; i++){
         for(int j=0; j<g->nbc; j++){
             if(est_vivante(i, j, *g)){
@@ -64,7 +61,14 @@ void print_grille(cairo_surface_t *surface, grille *g){
 	            cairo_set_source_rgb (cr, 1.0, 0.0, 0.0);
 	            cairo_fill(cr);
             }
+            else{
+                cairo_rectangle(cr,j*SQUARE_SIZE+10, i*SQUARE_SIZE+10, SQUARE_SIZE, SQUARE_SIZE);
+	            cairo_set_source_rgb (cr, 1.0, 1.0, 1.0);
+	            cairo_fill(cr);
+            }
         }
+        print_colonnes(surface, cr, g, 10, 10);
+        print_lignes(surface, cr, g, 10, 10);
     }
 
 }
