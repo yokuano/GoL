@@ -54,7 +54,10 @@ int main (int argc, char *argv[]){
 			evolue(&g,&gc);
 			print_grille(cs, &g);
 		}
-		else if(e.type==ButtonPress);
+		if(e.type==ButtonPress && e.xbutton.button == Button3){
+			break;
+		}
+
 
 	}
 
