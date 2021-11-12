@@ -1,3 +1,13 @@
+/**
+ * @file cairomain.c
+ * @author Bendriss Mohamed Dris
+ * @brief Fichier main qui permet de lancer le jeux en mode graphique 
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <cairo.h>
@@ -50,11 +60,11 @@ int main (int argc, char *argv[]){
 	while(1) {
 		XNextEvent(dpy, &e);
 		if(e.type==Expose && e.xexpose.count<1) {
-			print_grille(cs, &g);
+			print_GraphicUserInterface(cs, &g);
 		} 
 		else if(e.type==ButtonPress && e.xbutton.button == Button1){ // evolution
 			evolue(&g,&gc);
-			print_grille(cs, &g);
+			print_GraphicUserInterface(cs, &g);
 		}
 		else if(e.type==ButtonPress && e.xbutton.button == Button3){ //quitter 
 			break;
@@ -62,10 +72,12 @@ int main (int argc, char *argv[]){
 		else if(e.type==KeyPress && e.xkey.keycode == 55){ // vileillsement
 			if(vieillsement==0) vieillsement=1;
 			else vieillsement=0;
+			print_GraphicUserInterface(cs, &g);
 		}
 		else if(e.type==KeyPress && e.xkey.keycode == 54){ // cyclique
 			if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) compte_voisins_vivants=compte_voisins_vivants_en_mode_non_cyclique;
 			else compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
+			print_GraphicUserInterface(cs, &g);
 		}
 		
 	}
