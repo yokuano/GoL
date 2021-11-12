@@ -11,7 +11,7 @@
 #include "io.h"
 #include "jeu.h"
 
-extern int vieillissement;
+extern int vieillsement;
 /**
  * \param[in] argc
  * \param[in] argv
@@ -29,7 +29,7 @@ int main (int argc, char ** argv) {
 	init_grille_from_file(argv[1],&g);
 	alloue_grille (g.nbl, g.nbc, &gc);
 	system("clear");
-	print_gui(0, 0, compte_voisins_vivants);
+	print_gui(0, vieillsement, compte_voisins_vivants);
 	affiche_grille(g);
 	
 	debut_jeu(&g, &gc);
