@@ -53,4 +53,15 @@ void print_colonnes(cairo_surface_t *surface, cairo_t *cr, grille* g, int debut_
  */
 void print_grille(cairo_surface_t *surface, grille *g);
 
+/**
+ * @brief 
+ * 
+ * @param compte_voisins_vivants 
+ * @param surface 
+ * @param cr 
+ * @param sizeX 
+ * @param sizeY 
+ */
+void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_surface_t *surface, int sizeX, int sizeY);
+
 #endif
