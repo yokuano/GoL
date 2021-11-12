@@ -11,6 +11,21 @@
 #define SQUARE_SIZE 50
 
 /**
+ * \brief Get the Y Window Size of the device running the executable
+ * 
+ * \return int 
+ */
+int getX_SizeWindow();
+
+
+/**
+ * \brief Get the Y Window Size of the device running the executable
+ * 
+ * \return int 
+ */
+int getY_SizeWindow();
+
+/**
  * \param[in,out] surface
  * \param[in] cr
  * \param[in] g

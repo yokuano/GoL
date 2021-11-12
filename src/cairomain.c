@@ -9,9 +9,6 @@
 #include "jeu.h"
 #include "displaycairo.h"
 
-#define SIZEX 1000
-#define SIZEY 1000
-
 extern int vieillsement;
 
 int main (int argc, char *argv[]){
@@ -21,6 +18,8 @@ int main (int argc, char *argv[]){
 	Window win;
 	XEvent e;
 	int scr;
+	int SIZEX=getX_SizeWindow();
+	int SIZEY=getY_SizeWindow();
 
     grille g, gc;
 	init_grille_from_file(argv[1],&g);

@@ -5,6 +5,42 @@
 int temps=0;
 char *tempsEvolution;
 
+
+
+int getX_SizeWindow(){
+    int xSize;
+    FILE* pp;
+    pp=popen("xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f1", "r");
+    if(pp==NULL){
+        printf("Couldn't load Window size");
+        exit(1);
+    }
+    char* tmp;
+    char buf[5];
+    tmp=fgets(buf, sizeof buf, pp);
+    xSize=atoi(tmp);
+    pclose(pp);
+    return xSize;
+
+}
+
+int getY_SizeWindow(){
+    int ySize;
+    FILE* pp;
+    pp=popen("xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f2", "r");
+    if(pp==NULL){
+        printf("Couldn't load Window size");
+        exit(1);
+    }
+    char* tmp;
+    char buf[5];
+    tmp=fgets(buf, sizeof buf, pp);
+    ySize=atoi(tmp);
+    pclose(pp);
+    return ySize;
+}
+
+
 void print_lignes(cairo_surface_t *surface, cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y){
 
     cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
@@ -69,3 +105,5 @@ void print_grille(cairo_surface_t *surface, grille *g){
     }
 
 }
+
+
