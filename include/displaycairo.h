@@ -145,4 +145,6 @@ void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutT
  */
 void print_GraphicUserInterface(cairo_surface_t *surface, grille *g);
 
+char* newGrille(int event);
+
 #endif

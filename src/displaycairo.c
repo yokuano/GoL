@@ -118,7 +118,7 @@ void print_GUI_vieillsement(int vieillsement, cairo_surface_t *surface, int size
 
     cairo_t *cr;
 	cr=cairo_create(surface);
-    char* aging="vieillsement";
+    char* aging="Vieillsement";
     double x, y;
     cairo_text_extents_t extents;
     
@@ -185,14 +185,14 @@ void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_sur
 
     cairo_t *cr;
 	cr=cairo_create(surface);
-    char* cycle="cyclique";
+    char* cycle="Cyclique";
     double x, y;
     cairo_text_extents_t extents;
 
     cairo_rectangle(cr, 2*sizeX/3, 0, sizeX/3, GUI_Y);
 
     compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique ? 
-    SET_SOURCE_RED(cr) : SET_SOURCE_GREEN(cr);
+    SET_SOURCE_GREEN(cr) : SET_SOURCE_RED(cr);
 
     cairo_fill(cr);
 
@@ -262,6 +262,14 @@ void print_GraphicUserInterface(cairo_surface_t *surface, grille *g){
     print_GUI_cycle(compte_voisins_vivants, surface, getX_SizeWindow(), getY_SizeWindow());
     print_GUI_grille(surface, getX_SizeWindow(), getY_SizeWindow());
 
+}
+
+char* newGrille(int event){
+    char n=event-9+48;
+    char tmp[2]={n, '\0'};
+    char* newGrille;
+    newGrille=concat("./grilles/grille", concat(tmp, ".txt"));                                 
+    return newGrille;
 }
 
 

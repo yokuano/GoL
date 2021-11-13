@@ -82,23 +82,23 @@ int main (int argc, char *argv[]){
 			print_GraphicUserInterface(cs, &g);
 		}
 		else if(e.type==KeyPress && e.xkey.keycode == 57){
-			printf("Entrez le chemain de la grille: ");
-
-			char grille_name[25];
-			scanf(" %s", grille_name);
-			efface_grille(g);
-			libere_grille(&g);
-			libere_grille(&gc);
-
-			init_grille_from_file(grille_name, &g);
-			alloue_grille(g.nbl, g.nbc, &gc);
-			timeEvo=0;
-			print_GraphicUserInterface(cs, &g);
+			XNextEvent(dpy, &e);
+				if(e.type==KeyPress && e.xkey.keycode>=10 && e.xkey.keycode<19){
+					efface_grille(g);
+					libere_grille(&g);
+					libere_grille(&gc);
+					init_grille_from_file(newGrille(e.xkey.keycode), &g);
+					alloue_grille(g.nbl, g.nbc, &gc);
+					timeEvo=0;
+					print_GraphicUserInterface(cs, &g);
+				}
+			}
 		}
-		
-	}
 
 	cairo_surface_destroy(cs); // destroy cairo surface
 	XCloseDisplay(dpy); // close the display
+	system("clear");
+	printf("X11 Display has been closed due to user using right click on their mouse\n");
 	return 0;
+		
 }
