@@ -20,6 +20,7 @@
 #include "displaycairo.h"
 
 extern int vieillsement;
+extern int timeEvo;
 
 int main (int argc, char *argv[]){
 	// X11 display
@@ -64,6 +65,7 @@ int main (int argc, char *argv[]){
 		} 
 		else if(e.type==ButtonPress && e.xbutton.button == Button1){ // evolution
 			evolue(&g,&gc);
+			timeEvo++;
 			print_GraphicUserInterface(cs, &g);
 		}
 		else if(e.type==ButtonPress && e.xbutton.button == Button3){ //quitter 
@@ -77,6 +79,20 @@ int main (int argc, char *argv[]){
 		else if(e.type==KeyPress && e.xkey.keycode == 54){ // cyclique
 			if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) compte_voisins_vivants=compte_voisins_vivants_en_mode_non_cyclique;
 			else compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
+			print_GraphicUserInterface(cs, &g);
+		}
+		else if(e.type==KeyPress && e.xkey.keycode == 57){
+			printf("Entrez le chemain de la grille: ");
+
+			char grille_name[25];
+			scanf(" %s", grille_name);
+			efface_grille(g);
+			libere_grille(&g);
+			libere_grille(&gc);
+
+			init_grille_from_file(grille_name, &g);
+			alloue_grille(g.nbl, g.nbc, &gc);
+			timeEvo=0;
 			print_GraphicUserInterface(cs, &g);
 		}
 		

@@ -91,17 +91,6 @@ void print_GUI_vieillsement(int vieillsement, cairo_surface_t *surface, int size
 
 
 /**
- * \brief Affiche la zone du GUI consacré au mode do voisinage
- * 
- * \param[in] compte_voisins_vivants Pointeur de fonction dont la valeur change si le voisinage est cyclique ou non
- * \param[in,out] surface surface_cairo
- * \param[in] sizeX Longeur de l'ecran
- * \param[in] sizeY Largeur de l'ecran
- */
-void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_surface_t *surface, int sizeX, int sizeY);
-
-
-/**
  * 
  * \brief Affiche la zone du GUI à la grille que l'on charge
  * 
@@ -110,6 +99,17 @@ void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_sur
  * \param[in] sizeY Largeur de l'ecran
  */
 void print_GUI_grille(cairo_surface_t *surface, int sizeX, int sizeY);
+
+
+/**
+ * \brief Affiche la zone du GUI consacré au mode do voisinage
+ * 
+ * \param[in] compte_voisins_vivants Pointeur de fonction dont la valeur change si le voisinage est cyclique ou non
+ * \param[in,out] surface surface_cairo
+ * \param[in] sizeX Longeur de l'ecran
+ * \param[in] sizeY Largeur de l'ecran
+ */
+void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_surface_t *surface, int sizeX, int sizeY);
 
 
 /**

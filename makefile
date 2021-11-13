@@ -46,5 +46,5 @@ clean:
 
 dist:
 	mkdir -p dist
-	tar -cJvf BendrissMohamedDris-GoL-v4.1.1.tar.xz $(ZIP)
+	tar -cJvf BendrissMohamedDris-GoL-v4.1.2.tar.xz $(ZIP)
 	mv *.xz dist

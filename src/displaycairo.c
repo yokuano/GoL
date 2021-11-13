@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "displaycairo.h"
 
-int temps=0;
+extern int timeEvo;
 char *tempsEvolution;
 extern int vieillsement;
 
@@ -135,6 +135,19 @@ void print_GUI_grille(cairo_surface_t *surface, int sizeX, int sizeY){
     cairo_set_source_rgb(cr, 0.38, 0.38, 0.38);
     cairo_fill(cr);
 
+    SET_SOURCE_BLACK(cr);
+    cairo_select_font_face(cr, "Purisa",
+        CAIRO_FONT_SLANT_NORMAL,
+        CAIRO_FONT_WEIGHT_BOLD);
+
+        
+    cairo_move_to(cr, getX_SizeWindow()/3, GUI_Y/2);
+    cairo_set_font_size(cr, 20);
+    char evo[10];
+    snprintf(evo, 10, "%d", timeEvo);
+    cairo_show_text(cr, evo);
+
+
     printRectangle(cr, getX_SizeWindow()/3, 0, getX_SizeWindow()/3, GUI_Y, 3);
 
     cairo_destroy(cr); // destroy cairo mask
@@ -216,6 +229,7 @@ void print_GraphicUserInterface(cairo_surface_t *surface, grille *g){
 
     print_colonnes(cr, g, debutTabX, debutTabY);
     print_lignes(cr, g, debutTabX, debutTabY);
+
     print_GUI_vieillsement(vieillsement, surface, getX_SizeWindow(), getY_SizeWindow());
     print_GUI_cycle(compte_voisins_vivants, surface, getX_SizeWindow(), getY_SizeWindow());
     print_GUI_grille(surface, getX_SizeWindow(), getY_SizeWindow());
