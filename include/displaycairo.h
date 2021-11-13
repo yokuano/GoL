@@ -15,8 +15,9 @@
 #include <cairo.h>
 #include <cairo-xlib.h>
 #include <X11/Xlib.h>
+#include <string.h>
+
 #include "jeu.h"
-#include "string.h"
 
 #define SQUARE_SIZE 25
 #define GUI_Y 100
