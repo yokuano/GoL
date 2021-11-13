@@ -2,7 +2,11 @@
  * \file jeu.c
  * \brief Ensembles de fonctions permettant de **faire avancer le cours du jeu**
  * \author Bendriss Mohamed Dris
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
+
 
 #include "jeu.h"
 

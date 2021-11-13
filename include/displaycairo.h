@@ -16,6 +16,7 @@
 #include <cairo-xlib.h>
 #include <X11/Xlib.h>
 #include "jeu.h"
+#include "string.h"
 
 #define SQUARE_SIZE 25
 #define GUI_Y 100
@@ -24,6 +25,18 @@
 #define SET_SOURCE_GREEN(cr) cairo_set_source_rgb(cr, 0.69019, 0.94901, 0.71372)
 #define SET_SOURCE_RED(cr) cairo_set_source_rgb(cr, 0.94901, 0.38742, 0.41531)
 #define SET_SOURCE_GREY(cr) cairo_set_source_rgb(cr, 0.2, 0.2, 0.2);
+
+/**
+ * \brief Concaténe la chaine s1 et s2 en une nouvelle chaine
+ * 
+ * \param[in] s1 
+ * \param[in] s2 
+ * 
+ * \author David Heffernan on: https://stackoverflow.com/questions/8465006/how-do-i-concatenate-two-strings-in-c/8465083#8465083
+ * \copyright Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+ * \return Concaténation char* (s1+s2)  
+ */
+char* concat(const char *s1, const char *s2);
 
 
 /**

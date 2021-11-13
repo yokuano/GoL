@@ -1,10 +1,29 @@
+/**
+ * \file displaycairo.c
+ * \brief Ensemble de fonction qui permet **d'afficher et d'actualiser la fenêtre graphique**
+ * \author Bendriss Mohamed Dris
+ * 
+ * \copyright Copyright (c) 2021
+ * 
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "displaycairo.h"
 
 extern int timeEvo;
-char *tempsEvolution;
 extern int vieillsement;
+
+
+char* concat(const char *s1, const char *s2)
+{
+    char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
+    // in real code you would check for errors in malloc here
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
+}
+
 
 int getX_SizeWindow(){
 
@@ -129,7 +148,9 @@ void print_GUI_vieillsement(int vieillsement, cairo_surface_t *surface, int size
 void print_GUI_grille(cairo_surface_t *surface, int sizeX, int sizeY){
 
     cairo_t *cr;
-    cr=cairo_create(surface);
+	cr=cairo_create(surface);
+    double x, y;
+    cairo_text_extents_t extents;
 
     cairo_rectangle(cr, sizeX/3+2, 0, sizeX/3-4, GUI_Y);
     cairo_set_source_rgb(cr, 0.38, 0.38, 0.38);
@@ -143,10 +164,17 @@ void print_GUI_grille(cairo_surface_t *surface, int sizeX, int sizeY){
         
     cairo_move_to(cr, getX_SizeWindow()/3, GUI_Y/2);
     cairo_set_font_size(cr, 20);
-    char evo[10];
-    snprintf(evo, 10, "%d", timeEvo);
-    cairo_show_text(cr, evo);
 
+    char evo[12];
+    snprintf(evo, 12, "%d", timeEvo);
+    char* evo2=concat("Temps d'évolution: ", evo);
+    cairo_text_extents(cr, evo2, &extents);
+    x=sizeX/2-extents.width/2;
+    y=GUI_Y/2;
+
+    cairo_move_to(cr, x, y);
+    cairo_show_text(cr, evo2);
+    free(evo2);
 
     printRectangle(cr, getX_SizeWindow()/3, 0, getX_SizeWindow()/3, GUI_Y, 3);
 
@@ -198,12 +226,12 @@ void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutT
         for(int j=0; j<g->nbc; j++){
             if(est_vivante(i, j, *g)){
                 cairo_rectangle(cr,j*SQUARE_SIZE+debutTabX, i*SQUARE_SIZE+debutTabY, SQUARE_SIZE, SQUARE_SIZE);
-	            cairo_set_source_rgb (cr, 0.0, 1.0-0.1*g->cellules[i][j], 0.0);
+	            cairo_set_source_rgba (cr, 0.0, 1, 0.0, 1.0-0.1*g->cellules[i][j]);
 	            cairo_fill(cr);
             }
             else if(!est_viable(i, j, *g)){
                 cairo_rectangle(cr,j*SQUARE_SIZE+debutTabX, i*SQUARE_SIZE+debutTabY, SQUARE_SIZE, SQUARE_SIZE);
-	            cairo_set_source_rgb (cr, 1.0, 0.0, 0.0);
+	            cairo_set_source_rgba (cr, 1, 0, 0, 2);
 	            cairo_fill(cr);
             }
             else{

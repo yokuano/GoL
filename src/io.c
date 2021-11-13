@@ -2,7 +2,11 @@
  * \file io.c
  * \brief Ensemles de fonctions qui permettent **l'affichage de et le controle du jeu**
  * \author Bendriss Mohamed Dris
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
+
 #include <stdlib.h>
 #include <unistd.h>
 

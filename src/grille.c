@@ -2,7 +2,11 @@
  * \file grille.c
  * \brief Ensemles de fonctions qui permettent de **manipuller des grilles**
  * \author Bendriss Mohamed Dris
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
+
 #include "grille.h"
 
 void alloue_grille(int l, int c, grille* g){
