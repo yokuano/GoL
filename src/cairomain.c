@@ -14,13 +14,12 @@
 #include <cairo-xlib.h>
 #include <X11/Xlib.h>
 
-#include "grille.h"
-#include "io.h"
-#include "jeu.h"
 #include "displaycairo.h"
 
 extern int vieillsement;
 extern int timeEvo;
+extern int darkmode; 
+
 
 int main (int argc, char *argv[]){
 	// X11 display
@@ -93,7 +92,11 @@ int main (int argc, char *argv[]){
 					print_GraphicUserInterface(cs, &g);
 				}
 			}
+		else if(e.type==KeyPress && e.xkey.keycode == 40){
+			darkmode=darkmode==1? 0:1;
+			print_GraphicUserInterface(cs, &g);
 		}
+	}
 
 	cairo_surface_destroy(cs); // destroy cairo surface
 	XCloseDisplay(dpy); // close the display

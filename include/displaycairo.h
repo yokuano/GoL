@@ -17,7 +17,7 @@
 #include <X11/Xlib.h>
 #include <string.h>
 
-#include "jeu.h"
+#include "io.h"
 
 #define SQUARE_SIZE 25
 #define GUI_Y 100
@@ -146,5 +146,6 @@ void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutT
 void print_GraphicUserInterface(cairo_surface_t *surface, grille *g);
 
 char* newGrille(int event);
+void set_bg(cairo_t* cr);
 
 #endif

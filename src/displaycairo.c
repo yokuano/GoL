@@ -9,11 +9,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "displaycairo.h"
 
 extern int timeEvo;
 extern int vieillsement;
-
+int darkmode=1;
 
 char* concat(const char *s1, const char *s2)
 {
@@ -80,7 +81,8 @@ void printRectangle(cairo_t *cr, int debutx, int debuty, int x, int y, int bold)
 
 void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y){
 
-    SET_SOURCE_WHITE(cr);
+    if(darkmode) SET_SOURCE_WHITE(cr);
+    if(!darkmode) SET_SOURCE_BLACK(cr);
     cairo_move_to(cr, debut_ligne_x, debut_ligne_y);
 
     for(int i=0; i<=g->nbl; i++){
@@ -98,7 +100,8 @@ void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y){
 
 void print_colonnes(cairo_t *cr, grille* g, int debut_colonne_x, int debut_colonne_y){
 
-    SET_SOURCE_WHITE(cr);
+    if(darkmode) SET_SOURCE_WHITE(cr);
+    if(!darkmode) SET_SOURCE_BLACK(cr);
     cairo_move_to(cr, debut_colonne_x, debut_colonne_y);
 
     for(int i=0; i<=g->nbc; i++){
@@ -219,8 +222,8 @@ void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutT
     cairo_t *cr;
 	cr=cairo_create(surface);
 
-    SET_SOURCE_GREY(cr);
-	cairo_paint(cr);
+    set_bg(cr);
+    cairo_paint(cr);
 
     for(int i=0; i<g->nbl; i++){
         for(int j=0; j<g->nbc; j++){
@@ -236,7 +239,7 @@ void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutT
             }
             else{
                 cairo_rectangle(cr,j*SQUARE_SIZE+debutTabX, i*SQUARE_SIZE+debutTabY, SQUARE_SIZE, SQUARE_SIZE);
-	            SET_SOURCE_GREY(cr);
+	            set_bg(cr);
 	            cairo_fill(cr);
             }
         }
@@ -271,5 +274,12 @@ char* newGrille(int event){
     newGrille=concat("./grilles/grille", concat(tmp, ".txt"));                                 
     return newGrille;
 }
+
+void set_bg(cairo_t* cr){
+    if(darkmode) SET_SOURCE_GREY(cr);
+    if(!darkmode) SET_SOURCE_WHITE(cr);    
+}
+
+
 
 
