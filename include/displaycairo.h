@@ -19,7 +19,7 @@
 
 #include "io.h"
 
-#define SQUARE_SIZE 25
+#define SQUARE_SIZE 50
 #define GUI_Y 100
 #define SET_SOURCE_WHITE(cr) cairo_set_source_rgb(cr, 1, 1, 1)
 #define SET_SOURCE_BLACK(cr) cairo_set_source_rgb(cr, 0, 0, 0)
@@ -145,7 +145,20 @@ void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutT
  */
 void print_GraphicUserInterface(cairo_surface_t *surface, grille *g);
 
+
+/**
+ * \brief Permet de trouver le chemain de la grille en fonction de la touche numérique entrée
+ * 
+ * \param event 
+ * \return Tableau de char qui contient le chemain de la grille que l'on veux charger
+ */
 char* newGrille(int event);
+
+/**
+ * \brief Changer la couleur du fond en fonction du mode nuit/jour
+ * 
+ * \param cr 
+ */
 void set_bg(cairo_t* cr);
 
 #endif

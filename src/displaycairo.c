@@ -81,14 +81,13 @@ void printRectangle(cairo_t *cr, int debutx, int debuty, int x, int y, int bold)
 
 void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y){
 
-    if(darkmode) SET_SOURCE_WHITE(cr);
-    if(!darkmode) SET_SOURCE_BLACK(cr);
+    SET_SOURCE_BLACK(cr);
     cairo_move_to(cr, debut_ligne_x, debut_ligne_y);
 
     for(int i=0; i<=g->nbl; i++){
 
         cairo_line_to(cr, debut_ligne_x+SQUARE_SIZE*g->nbc, debut_ligne_y);
-        cairo_set_line_width (cr, 1);
+        cairo_set_line_width (cr, 2);
         debut_ligne_y+=SQUARE_SIZE;
         cairo_move_to(cr, debut_ligne_x, debut_ligne_y);
 
@@ -100,14 +99,13 @@ void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y){
 
 void print_colonnes(cairo_t *cr, grille* g, int debut_colonne_x, int debut_colonne_y){
 
-    if(darkmode) SET_SOURCE_WHITE(cr);
-    if(!darkmode) SET_SOURCE_BLACK(cr);
+    SET_SOURCE_BLACK(cr);
     cairo_move_to(cr, debut_colonne_x, debut_colonne_y);
 
     for(int i=0; i<=g->nbc; i++){
 
         cairo_line_to(cr, debut_colonne_x, debut_colonne_y+SQUARE_SIZE*g->nbl);
-        cairo_set_line_width (cr, 1);
+        cairo_set_line_width (cr, 2);
         debut_colonne_x+=SQUARE_SIZE;
         cairo_move_to(cr, debut_colonne_x, debut_colonne_y);
 
