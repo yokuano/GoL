@@ -16,6 +16,7 @@
 #include <cairo-xlib.h>
 #include <X11/Xlib.h>
 #include <string.h>
+#include <X11/keysymdef.h>
 
 #include "io.h"
 
@@ -26,6 +27,8 @@
 #define SET_SOURCE_GREEN(cr) cairo_set_source_rgb(cr, 0.69019, 0.94901, 0.71372)
 #define SET_SOURCE_RED(cr) cairo_set_source_rgb(cr, 0.94901, 0.38742, 0.41531)
 #define SET_SOURCE_GREY(cr) cairo_set_source_rgb(cr, 0.2, 0.2, 0.2);
+#define keycode(c) XKeysymToKeycode(dpy, XStringToKeysym(c))
+
 
 /**
  * \brief Concaténe la chaine s1 et s2 en une nouvelle chaine

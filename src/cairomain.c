@@ -70,19 +70,19 @@ int main (int argc, char *argv[]){
 		else if(e.type==ButtonPress && e.xbutton.button == Button3){ //quitter 
 			break;
 		}
-		else if(e.type==KeyPress && e.xkey.keycode == 55){ // vileillsement
+		else if(e.type==KeyPress && e.xkey.keycode == keycode("v")){ // vileillsement
 			if(vieillsement==0) vieillsement=1;
 			else vieillsement=0;
 			print_GraphicUserInterface(cs, &g);
 		}
-		else if(e.type==KeyPress && e.xkey.keycode == 54){ // cyclique
+		else if(e.type==KeyPress && e.xkey.keycode == keycode("c")){ // cyclique
 			if(compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique) compte_voisins_vivants=compte_voisins_vivants_en_mode_non_cyclique;
 			else compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
 			print_GraphicUserInterface(cs, &g);
 		}
-		else if(e.type==KeyPress && e.xkey.keycode == 57){
+		else if(e.type==KeyPress && e.xkey.keycode == keycode("n")){
 			XNextEvent(dpy, &e);
-				if(e.type==KeyPress && e.xkey.keycode>=10 && e.xkey.keycode<19){
+				if(e.type==KeyPress && e.xkey.keycode>=keycode("1") && e.xkey.keycode<=keycode("9")){
 					efface_grille(g);
 					libere_grille(&g);
 					libere_grille(&gc);
@@ -92,7 +92,7 @@ int main (int argc, char *argv[]){
 					print_GraphicUserInterface(cs, &g);
 				}
 			}
-		else if(e.type==KeyPress && e.xkey.keycode == 40){
+		else if(e.type==KeyPress && e.xkey.keycode == keycode("d")){
 			darkmode=darkmode==1? 0:1;
 			print_GraphicUserInterface(cs, &g);
 		}

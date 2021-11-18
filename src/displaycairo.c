@@ -127,16 +127,13 @@ void print_GUI_vieillsement(int vieillsement, cairo_surface_t *surface, int size
     vieillsement==0 ? SET_SOURCE_RED(cr) : SET_SOURCE_GREEN(cr);
     cairo_fill(cr);
 
-    cairo_text_extents(cr, aging, &extents);
+    cairo_text_extents(cr, aging, &extents); // Get position to start writing 
     x=sizeX/6-extents.width;
     y=GUI_Y/2;
 
     SET_SOURCE_BLACK(cr);
-    cairo_select_font_face(cr, "Purisa",
-        CAIRO_FONT_SLANT_NORMAL,
-        CAIRO_FONT_WEIGHT_BOLD);
+    cairo_select_font_face(cr, "Purisa", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
 
-        
     cairo_move_to(cr, x, y);
     cairo_set_font_size(cr, 20);
     cairo_show_text(cr, aging);
@@ -158,11 +155,7 @@ void print_GUI_grille(cairo_surface_t *surface, int sizeX, int sizeY){
     cairo_fill(cr);
 
     SET_SOURCE_BLACK(cr);
-    cairo_select_font_face(cr, "Purisa",
-        CAIRO_FONT_SLANT_NORMAL,
-        CAIRO_FONT_WEIGHT_BOLD);
-
-        
+    cairo_select_font_face(cr, "Purisa", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);    
     cairo_move_to(cr, getX_SizeWindow()/3, GUI_Y/2);
     cairo_set_font_size(cr, 20);
 
@@ -202,9 +195,7 @@ void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_sur
     y=GUI_Y/2;
 
     SET_SOURCE_BLACK(cr);
-    cairo_select_font_face(cr, "Purisa",
-      CAIRO_FONT_SLANT_NORMAL,
-      CAIRO_FONT_WEIGHT_BOLD);
+    cairo_select_font_face(cr, "Purisa", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
     cairo_set_font_size(cr, 20);
     cairo_move_to(cr, x, y);
     cairo_show_text(cr, cycle);
@@ -275,9 +266,5 @@ char* newGrille(int event){
 
 void set_bg(cairo_t* cr){
     if(darkmode) SET_SOURCE_GREY(cr);
-    if(!darkmode) SET_SOURCE_WHITE(cr);    
+    if(!darkmode) SET_SOURCE_WHITE(cr);   
 }
-
-
-
-
