@@ -28,7 +28,7 @@
 #define SET_SOURCE_RED(cr) cairo_set_source_rgb(cr, 0.94901, 0.38742, 0.41531)
 #define SET_SOURCE_GREY(cr) cairo_set_source_rgb(cr, 0.2, 0.2, 0.2);
 #define keycode(c) XKeysymToKeycode(dpy, XStringToKeysym(c))
-
+extern int darkmode;
 
 /**
  * \brief Concaténe la chaine s1 et s2 en une nouvelle chaine
@@ -162,6 +162,9 @@ char* newGrille(int event);
  * 
  * \param cr 
  */
-void set_bg(cairo_t* cr);
+static inline void set_bg(cairo_t* cr){
+    if(darkmode) SET_SOURCE_GREY(cr);
+    if(!darkmode) SET_SOURCE_WHITE(cr);   
+}
 
 #endif

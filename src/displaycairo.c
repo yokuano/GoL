@@ -119,7 +119,7 @@ void print_GUI_vieillsement(int vieillsement, cairo_surface_t *surface, int size
 
     cairo_t *cr;
 	cr=cairo_create(surface);
-    char* aging="Vieillsement";
+    char* aging="Vieillissement";
     double x, y;
     cairo_text_extents_t extents;
     
@@ -150,7 +150,7 @@ void print_GUI_grille(cairo_surface_t *surface, int sizeX, int sizeY){
     double x, y;
     cairo_text_extents_t extents;
 
-    cairo_rectangle(cr, sizeX/3+2, 0, sizeX/3-4, GUI_Y);
+    cairo_rectangle(cr, sizeX/3+2, 0, sizeX/3-4, GUI_Y); 
     cairo_set_source_rgb(cr, 0.38, 0.38, 0.38);
     cairo_fill(cr);
 
@@ -162,7 +162,8 @@ void print_GUI_grille(cairo_surface_t *surface, int sizeX, int sizeY){
     char evo[12];
     snprintf(evo, 12, "%d", timeEvo);
     char* evo2=concat("Temps d'évolution: ", evo);
-    cairo_text_extents(cr, evo2, &extents);
+
+    cairo_text_extents(cr, evo2, &extents); // Get position to start writing 
     x=sizeX/2-extents.width/2;
     y=GUI_Y/2;
 
@@ -190,7 +191,7 @@ void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_sur
 
     cairo_fill(cr);
 
-    cairo_text_extents(cr, cycle, &extents);
+    cairo_text_extents(cr, cycle, &extents); // Get position to start writing 
     x=sizeX-2*extents.width-sizeX/6;
     y=GUI_Y/2;
 
@@ -262,9 +263,4 @@ char* newGrille(int event){
     char* newGrille;
     newGrille=concat("./grilles/grille", concat(tmp, ".txt"));                                 
     return newGrille;
-}
-
-void set_bg(cairo_t* cr){
-    if(darkmode) SET_SOURCE_GREY(cr);
-    if(!darkmode) SET_SOURCE_WHITE(cr);   
 }
