@@ -10,5 +10,9 @@ dist/
 # doc
 doc/
 
+#lib
+lib/
+
 # vscode
 .vscode/
+

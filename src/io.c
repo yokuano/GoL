@@ -23,7 +23,7 @@
 #define LOG_COLOR_INTEGER(int, color) printf(color " %d " COL_END, int) // Prints the INTEGER int in the color passed as argument
 
 extern int vieillsement;
-int timeEvo=0;
+extern int timeEvo;
 
 void print_gui(int evo, int aging, int (*compte_voisins_vivants) (int, int, grille)){
 

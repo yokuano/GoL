@@ -11,6 +11,7 @@
 #include "jeu.h"
 
 int vieillsement=0;
+int timeEvo=0;
 
 int compte_voisins_vivants_en_mode_cyclique(int i, int j, grille g){
 
