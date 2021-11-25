@@ -7,9 +7,6 @@
  * 
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "displaycairo.h"
 
 extern int timeEvo;
@@ -263,4 +260,22 @@ char* newGrille(int event){
     char* newGrille;
     newGrille=concat("./grilles/grille", concat(tmp, ".txt"));                                 
     return newGrille;
+}
+
+bool testEquivalenceGrille(grille* g1, grille* g2){
+    for(int i=0; i<g1->nbl; i++){
+        for(int j=0; j<g1->nbc; j++){
+            if(g1->cellules[i][j]!=g2->cellules[i][j]) return false;
+        }
+    }
+    return true;
+}
+
+bool testVideGrille(grille* g){
+    for(int i=0; i<g1->nbl; i++){
+        for(int j=0; j<g1->nbc; j++){
+            if(est_vivante(g->cellules[i][j])) return false;
+        }
+    }
+    return true;
 }

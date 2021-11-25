@@ -10,13 +10,12 @@
 #ifndef __DISPLAYCAIRO_H
 #define __DISPLAYCAIRO_H
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <cairo.h>
 #include <cairo-xlib.h>
 #include <X11/Xlib.h>
 #include <string.h>
 #include <X11/keysymdef.h>
+#include <stdbool.h>
 
 #include "io.h"
 
@@ -150,12 +149,29 @@ void print_GraphicUserInterface(cairo_surface_t *surface, grille *g);
 
 
 /**
- * \brief Permet de trouver le chemain de la grille en fonction de la touche numérique entrée
+ * brief Permet de trouver le chemain de la grille en fonction de la touche numérique entrée
  * 
  * \param event 
  * \return Tableau de char qui contient le chemain de la grille que l'on veux charger
  */
 char* newGrille(int event);
+
+/**
+ * \brief Test si deux grille sont identique ou non (les grilles sont supposé de meme taille)
+ * 
+ * \param g1 
+ * \param g2 
+ * \return boolean
+ */
+bool testEquivalenceGrille(grille* g1, grille* g2);
+
+/**
+ * \brief Test si une grille est vide
+ * 
+ * \param g 
+ * \return boolean
+ */
+bool testVideGrille(grille* g);
 
 /**
  * \brief Changer la couleur du fond en fonction du mode nuit/jour

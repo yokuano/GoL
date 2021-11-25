@@ -10,7 +10,6 @@
 #ifndef __IO_H
 #define __IO_H
 
-#include <stdio.h>
 #include "grille.h"
 #include "jeu.h"
 

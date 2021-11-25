@@ -7,12 +7,7 @@
  * 
  */
 
-#include <stdio.h>
-
-
-#include "grille.h"
 #include "io.h"
-#include "jeu.h"
 
 extern int vieillsement;
 /**
@@ -24,7 +19,7 @@ int main (int argc, char ** argv) {
 
 	if (argc != 2 )
 	{
-		printf("usage : main <fichier grille>");
+		printf("usage : ./bin/main <fichier grille>");
 		return 1;
 	}
 

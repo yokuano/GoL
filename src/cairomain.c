@@ -7,13 +7,6 @@
  * 
  */
 
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <cairo.h>
-#include <cairo-xlib.h>
-#include <X11/Xlib.h>
-
 #include "displaycairo.h"
 
 extern int vieillsement;
@@ -21,7 +14,14 @@ extern int timeEvo;
 extern int darkmode; 
 
 
-int main (int argc, char *argv[]){
+int main (int argc, char ** argv){
+
+	if (argc != 2 )
+	{
+		printf("usage : ./bin/cairomain <fichier grille>");
+		return 1;
+	}
+
 	// X11 display
 	Display *dpy;
 	Window rootwin;
@@ -83,7 +83,6 @@ int main (int argc, char *argv[]){
 		else if(e.type==KeyPress && e.xkey.keycode == keycode("n")){
 			XNextEvent(dpy, &e);
 				if(e.type==KeyPress && e.xkey.keycode>=keycode("1") && e.xkey.keycode<=keycode("9")){
-					efface_grille(g);
 					libere_grille(&g);
 					libere_grille(&gc);
 					init_grille_from_file(newGrille(e.xkey.keycode), &g);
