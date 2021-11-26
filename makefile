@@ -1,51 +1,40 @@
 .PHONY: clean doc dist all
-
-CFLAGS+= -Wall -g
-CPPFLAGS += -Iinclude -I/usr/include/cairo
-LDFLAGS += -lcairo -lm -lX11
+EXEC  = main
 OPATH = obj/
 BPATH = bin/
-LPATH= lib/
-DOC= doxygen
-ZIP= src makefile Doxyfile grilles README.md include
-DEL= obj bin dist doc lib
-LIB=jeu.o grille.o
-MODE=GRAPH
+LPATH = lib/
+LIB   = jeu.o grille.o
+ZIP   = src makefile Doxyfile grilles README.md include
+DOC   = doxygen
+DEL   = obj bin dist doc lib
+CFLAGS += -Wall -g
+CPPFLAGS += -Iinclude
+LDFLAGS = -lm -ljeu -L lib
 
 vpath %.c src/
 vpath %.h include/
 
 ifeq (TEXTE,$(MODE))
-
-main : libjeu.a
-	$(CC) $(CFLAGS) -o $@ lib/$^ -lm -ljeu -L lib
-	mv *.o $(OPATH)
-	mv main $(BPATH)
-
-$(OPATH)%.o : %.c %.h
-	$(CC) -Iinclude $(CFLAGS) -c -o $@ $<
+	LIB+=io.o main.o
 
 else
+	LDFLAGS += -lcairo -lm -lX11
+	CPPFLAGS += -I/usr/include/cairo
+	LIB += displaycairo.o cairomain.o
 
-cairomain : libjeu.a
-	$(CC) $(CFLAGS) -o $@ lib/$^ -lm -ljeu -L lib $(LDFLAGS)
+endif
+
+$(EXEC) : libjeu.a
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ lib/$^ $(LDFLAGS)
 	mv *.o $(OPATH)
-	mv cairomain $(BPATH)
+	mv $(EXEC) $(BPATH)
 
 $(OPATH)%.o : %.c %.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
-endif
-
-libjeu.a: io.o main.o cairomain.o displaycairo.o $(LIB)
-	@if [ $(MODE) = "TEXTE" ] ; \
-		then \
-			ar rvs libjeu.a $(LIB) io.o main.o; \
-	else ar rvs libjeu.a $(LIB) cairomain.o displaycairo.o; \
-	fi
-	mkdir -p $(LPATH)
-	mkdir -p $(OPATH)
-	mkdir -p $(BPATH)
+libjeu.a: $(LIB)
+	ar rvs libjeu.a $(LIB)
+	mkdir -p $(LPATH) $(BPATH) $(OPATH)
 	ranlib libjeu.a
 	mv libjeu.a lib/
 
