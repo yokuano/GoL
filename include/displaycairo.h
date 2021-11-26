@@ -183,4 +183,30 @@ static inline void set_bg(cairo_t* cr){
     if(!darkmode) SET_SOURCE_WHITE(cr);   
 }
 
+
+/**
+ * \brief Teste si deux grilles sont identiques
+ * 
+ * \param g1 
+ * \param g2 
+ * \return boolean
+ */
+bool testEquivalenceGrille(grille* g1, grille* g2);
+
+/**
+ * \brief Teste si une grille est vide (aucune cellules vivantes)
+ * 
+ * \param g 
+ * \return boolean
+ */
+bool testVideGrille(grille* g);
+
+/**
+ * \brief Permet de commencer le jeu en version cairo
+ * 
+ * \param g 
+ * \param gc 
+ */
+void debut_jeu_cairo(grille *g, grille *gc);
+
 #endif
