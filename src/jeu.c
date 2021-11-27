@@ -74,8 +74,23 @@ void calcul_vieillissement(grille *g){
 
 }
 
-void oscillation(grille *g){
-	
+int oscillation(grille *g){
+	unsigned int limit=255;
+	int oscillation=0;
+	grille g2, g3;
+	alloue_grille(g->nbl, g->nbc, &g2);
+	copie_grille(*g, g2);
+	alloue_grille(g->nbl, g->nbc, &g3);
+	copie_grille(*g, g2);
+	do{
+		if(testVideGrille(&g2)){
+			oscillation=-1;
+			break;
+		}
+		evolue(&g2, &g3);
+		oscillation++;
+	}while(!(testEquivalenceGrille(g, &g2)) && oscillation!=limit);
+	return oscillation;
 }
 
 
