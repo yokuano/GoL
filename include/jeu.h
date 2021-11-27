@@ -58,7 +58,7 @@ void evolue (grille *g, grille *gc);
  */
 int (*compte_voisins_vivants) (int, int, grille);
 
-int oscillation(grille *g);
+int oscillation(grille *g, grille *gc);
 
 #endif
 
