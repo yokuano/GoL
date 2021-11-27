@@ -140,6 +140,14 @@ void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutT
 
 
 /**
+ * @brief Afiche les controles
+ * 
+ * @param[in] surface 
+ */
+void print_crtl(cairo_surface_t *surface);
+
+
+/**
  * \brief Affiche la totalité de l'interface graphique
  * 
  * \param[in, out] surface cairo_surface 
@@ -151,32 +159,16 @@ void print_GraphicUserInterface(cairo_surface_t *surface, grille *g);
 /**
  * brief Permet de trouver le chemain de la grille en fonction de la touche numérique entrée
  * 
- * \param event 
+ * \param[in] event 
  * \return Tableau de char qui contient le chemain de la grille que l'on veux charger
  */
 char* newGrille(int event);
 
-/**
- * \brief Test si deux grille sont identique ou non (les grilles sont supposé de meme taille)
- * 
- * \param g1 
- * \param g2 
- * \return boolean
- */
-bool testEquivalenceGrille(grille* g1, grille* g2);
-
-/**
- * \brief Test si une grille est vide
- * 
- * \param g 
- * \return boolean
- */
-bool testVideGrille(grille* g);
 
 /**
  * \brief Changer la couleur du fond en fonction du mode nuit/jour
  * 
- * \param cr 
+ * \param[in,out] cr 
  */
 static inline void set_bg(cairo_t* cr){
     if(darkmode) SET_SOURCE_GREY(cr);
@@ -185,27 +177,10 @@ static inline void set_bg(cairo_t* cr){
 
 
 /**
- * \brief Teste si deux grilles sont identiques
- * 
- * \param g1 
- * \param g2 
- * \return boolean
- */
-bool testEquivalenceGrille(grille* g1, grille* g2);
-
-/**
- * \brief Teste si une grille est vide (aucune cellules vivantes)
- * 
- * \param g 
- * \return boolean
- */
-bool testVideGrille(grille* g);
-
-/**
  * \brief Permet de commencer le jeu en version cairo
  * 
- * \param g 
- * \param gc 
+ * \param[in,out] g 
+ * \param[in,out] gc 
  */
 void debut_jeu_cairo(grille *g, grille *gc);
 

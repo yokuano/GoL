@@ -71,3 +71,21 @@ void copie_grille (grille gs, grille gd){
 	return;	
 	
 }
+
+bool testEquivalenceGrille(grille* g1, grille* g2){
+    for(int i=0; i<g1->nbl; i++){
+        for(int j=0; j<g1->nbc; j++){
+            if(g1->cellules[i][j]!=g2->cellules[i][j]) return false;
+        }
+    }
+    return true;
+}
+
+bool testVideGrille(grille* g){
+    for(int i=0; i<g->nbl; i++){
+        for(int j=0; j<g->nbc; j++){
+            if(est_vivante(i, j, *g)) return false;
+        }
+    }
+    return true;
+}

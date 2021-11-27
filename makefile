@@ -1,4 +1,4 @@
-.PHONY: clean doc dist all
+.PHONY: clean dist doc
 EXEC  = main
 OPATH = obj/
 BPATH = bin/
@@ -33,6 +33,7 @@ $(OPATH)%.o : %.c %.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 libjeu.a: $(LIB)
+	make clean
 	ar rvs libjeu.a $(LIB)
 	mkdir -p $(LPATH) $(BPATH) $(OPATH)
 	ranlib libjeu.a

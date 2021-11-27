@@ -235,6 +235,76 @@ void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutT
     cairo_destroy(cr); // destroy cairo mask
 }
 
+
+void print_crtl(cairo_surface_t *surface){
+    
+    cairo_t *cr;
+	cr=cairo_create(surface);
+
+    cairo_rectangle(cr, 0, GUI_Y, getX_SizeWindow()/3, getY_SizeWindow()-100); 
+    cairo_set_source_rgb(cr, 0.38, 0.38, 0.38);
+    cairo_fill(cr);
+    printRectangle(cr, 0, GUI_Y, getX_SizeWindow()/3, getY_SizeWindow()-100, 3);
+
+    
+    cairo_select_font_face(cr, "Miriam Mono", 0, 0.5);
+    cairo_set_font_size(cr, 15);
+
+    cairo_move_to(cr, 25, 150);
+    cairo_show_text(cr, "Commandes Souris");
+    cairo_move_to(cr, 25, 180);
+    cairo_show_text(cr, "Left Click : Evolution de la grille");
+    cairo_move_to(cr, 25, 200);
+    cairo_show_text(cr, "Right Click: Quitter le jeu");
+
+    cairo_move_to(cr, 25, 240);
+    cairo_show_text(cr, "Commandes Clavier");
+    cairo_move_to(cr, 25, 270);
+    cairo_show_text(cr, "V : Activer/Desactiver le vieillsement");
+    cairo_move_to(cr, 25, 290);
+    cairo_show_text(cr, "C : Voisinage Cyclique/Non cyclique");
+    cairo_move_to(cr, 25, 310);
+    cairo_show_text(cr, "N : Charger une nouvelle grille");
+    cairo_move_to(cr, 25, 330);
+    cairo_show_text(cr, "O : Lancer le test d'oscillation");
+
+    cairo_move_to(cr, 25, 370);
+    cairo_show_text(cr, "Code couleur");
+    SET_SOURCE_GREEN(cr);
+    cairo_rectangle(cr, 25, 387, 20, 15);
+    cairo_fill(cr);
+    cairo_move_to(cr, 47, 400);
+    SET_SOURCE_BLACK(cr);
+    cairo_show_text(cr, " : Fonctionalité activé");
+    SET_SOURCE_RED(cr);
+    cairo_rectangle(cr, 25, 407, 20, 15);
+    cairo_fill(cr);
+    cairo_move_to(cr, 47, 420);
+    SET_SOURCE_BLACK(cr);
+    cairo_show_text(cr, " : Fonctionalité désactivé");
+    cairo_set_source_rgb(cr, 0, 1, 0);
+    cairo_rectangle(cr, 25, 427, 20, 15);
+    cairo_fill(cr);
+    cairo_move_to(cr, 47, 440);
+    SET_SOURCE_BLACK(cr);
+    cairo_show_text(cr, " : Cellule vivante");
+    set_bg(cr);
+    cairo_rectangle(cr, 25, 447, 20, 15);
+    cairo_fill(cr);
+    cairo_move_to(cr, 47, 460);
+    SET_SOURCE_BLACK(cr);
+    cairo_show_text(cr, " : Cellule morte");
+    cairo_set_source_rgb(cr, 1, 0, 0);
+    cairo_rectangle(cr, 25, 467, 20, 15);
+    cairo_fill(cr);
+    cairo_move_to(cr, 47, 480);
+    SET_SOURCE_BLACK(cr);
+    cairo_show_text(cr, " : Cellule non viable");
+
+    cairo_destroy(cr); // destroy cairo mask
+
+}
+
 void print_GraphicUserInterface(cairo_surface_t *surface, grille *g){
 
     cairo_t *cr;
@@ -262,23 +332,6 @@ char* newGrille(int event){
     return newGrille;
 }
 
-bool testEquivalenceGrille(grille* g1, grille* g2){
-    for(int i=0; i<g1->nbl; i++){
-        for(int j=0; j<g1->nbc; j++){
-            if(g1->cellules[i][j]!=g2->cellules[i][j]) return false;
-        }
-    }
-    return true;
-}
-
-bool testVideGrille(grille* g){
-    for(int i=0; i<g->nbl; i++){
-        for(int j=0; j<g->nbc; j++){
-            if(est_vivante(i, j, *g)) return false;
-        }
-    }
-    return true;
-}
 
 void debut_jeu_cairo(grille *g, grille *gc){
 
@@ -304,7 +357,7 @@ void debut_jeu_cairo(grille *g, grille *gc){
 			BlackPixel(dpy, scr), BlackPixel(dpy, scr));
 
 	XStoreName(dpy, win, "Game of Life by Bendriss Mohamed Dris");
-	XSelectInput(dpy, win, KeyPressMask|ExposureMask|ButtonPressMask);
+	XSelectInput(dpy, win, KeyPressMask|ExposureMask|ButtonPressMask|KeyReleaseMask);
 	XMapWindow(dpy, win);
 	
 	// create cairo surface
@@ -335,17 +388,22 @@ void debut_jeu_cairo(grille *g, grille *gc){
 			else compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
 			print_GraphicUserInterface(cs, g);
 		}
-		else if(e.type==KeyPress && e.xkey.keycode == keycode("n")){
+		else if(e.type==KeyPress && e.xkey.keycode == keycode("n")){ // charger une nouvelle grille
 			XNextEvent(dpy, &e);
-				if(e.type==KeyPress && e.xkey.keycode>=keycode("1") && e.xkey.keycode<=keycode("9")){
-					libere_grille(g);
-					libere_grille(gc);
-					init_grille_from_file(newGrille(e.xkey.keycode), g);
-					alloue_grille(g->nbl, g->nbc, gc);
-					timeEvo=0;
-					print_GraphicUserInterface(cs, g);
-				}
+			if(e.type==KeyPress && e.xkey.keycode>=keycode("1") && e.xkey.keycode<=keycode("9")){
+				libere_grille(g);
+				libere_grille(gc);
+				init_grille_from_file(newGrille(e.xkey.keycode), g);
+				alloue_grille(g->nbl, g->nbc, gc);
+				timeEvo=0;
+				print_GraphicUserInterface(cs, g);
 			}
+		}
+        else if(e.type==KeyPress && e.xkey.keycode == keycode("Control_L")){
+            print_crtl(cs);
+            while(e.type!=KeyRelease) XNextEvent(dpy, &e);
+            print_GraphicUserInterface(cs, g);
+        }
 		else if(e.type==KeyPress && e.xkey.keycode == keycode("d")){
 			darkmode=darkmode==1? 0:1;
 			print_GraphicUserInterface(cs, g);

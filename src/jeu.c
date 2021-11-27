@@ -74,6 +74,10 @@ void calcul_vieillissement(grille *g){
 
 }
 
+void oscillation(grille *g){
+	
+}
+
 
 void evolue (grille *g, grille *gc){
 

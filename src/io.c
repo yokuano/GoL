@@ -173,7 +173,9 @@ void debut_jeu(grille *g, grille *gc){
 				affiche_grille(*g);
 				getchar();
 				break;
-			
+
+			case 'o':
+				oscillation(g);
 
 			default :
 
