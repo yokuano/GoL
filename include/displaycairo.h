@@ -18,14 +18,21 @@
 #include <stdbool.h>
 
 #include "io.h"
-
+/** @brief Taille d'une cellule de la grille */
 #define SQUARE_SIZE 50
+/** @brief Taille de l'interface superieur */
 #define GUI_Y 100
+/** @brief Change la couleur des actions cairo en blanc */
 #define SET_SOURCE_WHITE(cr) cairo_set_source_rgb(cr, 1, 1, 1)
+/** @brief Change la couleur des actions cairo en blanc */
 #define SET_SOURCE_BLACK(cr) cairo_set_source_rgb(cr, 0, 0, 0)
+/** @brief Change la couleur des actions cairo en blanc */
 #define SET_SOURCE_GREEN(cr) cairo_set_source_rgb(cr, 0.69019, 0.94901, 0.71372)
+/** @brief Change la couleur des actions cairo en blanc */
 #define SET_SOURCE_RED(cr) cairo_set_source_rgb(cr, 0.94901, 0.38742, 0.41531)
+/** @brief Change la couleur des actions cairo en blanc */
 #define SET_SOURCE_GREY(cr) cairo_set_source_rgb(cr, 0.2, 0.2, 0.2);
+/** @brief Recupere le keycode X11 du character mis en argument */
 #define keycode(c) XKeysymToKeycode(dpy, XStringToKeysym(c))
 extern int darkmode;
 
@@ -80,7 +87,7 @@ void printRectangle(cairo_t *cr, int debutx, int debuty, int x, int y, int bold)
  * \param[in] debut_ligne_x Coordonées X de notre position de base, la ou le tracé commence
  * \param[in] debut_ligne_y Coordonées Y de notre position de base, la ou le tracé commence
  */
-void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y);
+void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y, int squaresize);
 
 
 /**
@@ -92,7 +99,7 @@ void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y);
  * \param[in] debut_colonne_x Coordonées X de notre position de base, la ou le tracé commence
  * \param[in] debut_colonne_y Coordonées Y de notre position de base, la ou le tracé commence
  */
-void print_colonnes(cairo_t *cr, grille* g, int debut_colonne_x, int debut_colonne_y);
+void print_colonnes(cairo_t *cr, grille* g, int debut_colonne_x, int debut_colonne_y,  int squaresize);
 
 
 /**
@@ -136,7 +143,7 @@ void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_sur
  * \param[in] debutTabX Coordonée X du coin en haut a gauche de la grille
  * \param[in] debutTabY Coordonée Y du coin en haut a gauche de la grille
  */
-void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutTabY);
+void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutTabY,  int squaresize);
 
 
 /**

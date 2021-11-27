@@ -11,6 +11,7 @@
 #define __JEU_H
 
 #include "grille.h"
+extern int generationOscillante;
 
 /**
  * \param[in] i Coordonée i de la cellule
@@ -58,9 +59,29 @@ void evolue (grille *g, grille *gc);
  */
 int (*compte_voisins_vivants) (int, int, grille);
 
-int oscillation(grille *g);
 
-int recurrsionoscillation(grille *g, grille *gc);
+/**
+ * \brief Permet de calculer l'oscillation d'une colonie à partir d'une certaine position de base
+ * 
+ * \param[in,out] g 
+ * \return int 
+ */
+int calcul_oscillation_wrapper(grille *g);
+
+/**
+ * \brief Permet de calculer l'oscillation d'une colonie, en prenant en compte le fait que la colonie passé en argument ne soit pas encore un motif oscillant 
+ * 
+ * \param[in, out] g 
+ * \param[in, out] gc 
+ * \return int 
+ */
+int calcul_oscillation(grille *g, grille *gc);
+
+/**
+ * \brief Assigner la valeur par defaut à la génération oscillante une fois le calcul de l'oscillation terminé
+ * 
+ */
+static inline void setGen(){generationOscillante=1;}
 
 #endif
 

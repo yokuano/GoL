@@ -11,6 +11,7 @@
 
 extern int timeEvo;
 extern int vieillsement;
+extern int generationOscillante;
 int darkmode=1;
 
 char* concat(const char *s1, const char *s2)
@@ -22,6 +23,13 @@ char* concat(const char *s1, const char *s2)
     return result;
 }
 
+char* newGrille(int event){
+    char n=event-9+48;
+    char tmp[2]={n, '\0'};
+    char* newGrille;
+    newGrille=concat("./grilles/grille", concat(tmp, ".txt"));                                 
+    return newGrille;
+}
 
 int getX_SizeWindow(){
 
@@ -76,16 +84,16 @@ void printRectangle(cairo_t *cr, int debutx, int debuty, int x, int y, int bold)
 }
 
 
-void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y){
+void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y, int squaresize){
 
     SET_SOURCE_BLACK(cr);
     cairo_move_to(cr, debut_ligne_x, debut_ligne_y);
 
     for(int i=0; i<=g->nbl; i++){
 
-        cairo_line_to(cr, debut_ligne_x+SQUARE_SIZE*g->nbc, debut_ligne_y);
+        cairo_line_to(cr, debut_ligne_x+squaresize*g->nbc, debut_ligne_y);
         cairo_set_line_width (cr, 2);
-        debut_ligne_y+=SQUARE_SIZE;
+        debut_ligne_y+=squaresize;
         cairo_move_to(cr, debut_ligne_x, debut_ligne_y);
 
     }
@@ -94,16 +102,16 @@ void print_lignes(cairo_t *cr, grille* g, int debut_ligne_x, int debut_ligne_y){
 
 }
 
-void print_colonnes(cairo_t *cr, grille* g, int debut_colonne_x, int debut_colonne_y){
+void print_colonnes(cairo_t *cr, grille* g, int debut_colonne_x, int debut_colonne_y, int squaresize){
 
     SET_SOURCE_BLACK(cr);
     cairo_move_to(cr, debut_colonne_x, debut_colonne_y);
 
     for(int i=0; i<=g->nbc; i++){
 
-        cairo_line_to(cr, debut_colonne_x, debut_colonne_y+SQUARE_SIZE*g->nbl);
+        cairo_line_to(cr, debut_colonne_x, debut_colonne_y+squaresize*g->nbl);
         cairo_set_line_width (cr, 2);
-        debut_colonne_x+=SQUARE_SIZE;
+        debut_colonne_x+=squaresize;
         cairo_move_to(cr, debut_colonne_x, debut_colonne_y);
 
     }
@@ -204,28 +212,25 @@ void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_sur
 }
 
 
-void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutTabY){
+void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutTabY, int squaresize){
 
     cairo_t *cr;
 	cr=cairo_create(surface);
 
-    set_bg(cr);
-    cairo_paint(cr);
-
     for(int i=0; i<g->nbl; i++){
         for(int j=0; j<g->nbc; j++){
             if(est_vivante(i, j, *g)){
-                cairo_rectangle(cr,j*SQUARE_SIZE+debutTabX, i*SQUARE_SIZE+debutTabY, SQUARE_SIZE, SQUARE_SIZE);
+                cairo_rectangle(cr,j*squaresize+debutTabX, i*squaresize+debutTabY, squaresize, squaresize);
 	            cairo_set_source_rgba (cr, 0.0, 1, 0.0, 1.0-0.1*g->cellules[i][j]);
 	            cairo_fill(cr);
             }
             else if(!est_viable(i, j, *g)){
-                cairo_rectangle(cr,j*SQUARE_SIZE+debutTabX, i*SQUARE_SIZE+debutTabY, SQUARE_SIZE, SQUARE_SIZE);
+                cairo_rectangle(cr,j*squaresize+debutTabX, i*squaresize+debutTabY, squaresize, squaresize);
 	            cairo_set_source_rgba (cr, 1, 0, 0, 2);
 	            cairo_fill(cr);
             }
             else{
-                cairo_rectangle(cr,j*SQUARE_SIZE+debutTabX, i*SQUARE_SIZE+debutTabY, SQUARE_SIZE, SQUARE_SIZE);
+                cairo_rectangle(cr,j*squaresize+debutTabX, i*squaresize+debutTabY, squaresize, squaresize);
 	            set_bg(cr);
 	            cairo_fill(cr);
             }
@@ -305,31 +310,73 @@ void print_crtl(cairo_surface_t *surface){
 
 }
 
+void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
+    cairo_t *cr;
+	cr=cairo_create(surface);
+    grille demo;
+	alloue_grille(g->nbl, g->nbc, &demo);
+    copie_grille(*gc, demo);
+
+    while((generationOscillante!=1)){
+        evolue(&demo, gc);
+        generationOscillante--;
+    }
+
+    int debutX=2*getX_SizeWindow()/3;
+
+    cairo_rectangle(cr, debutX, GUI_Y, getX_SizeWindow()/3, getY_SizeWindow()-GUI_Y); 
+    cairo_set_source_rgb(cr, 0.38, 0.38, 0.38);
+    cairo_fill(cr);
+    printRectangle(cr, debutX, GUI_Y, getX_SizeWindow()/3, getY_SizeWindow()-GUI_Y, 3);
+    
+    char osc[12];
+    snprintf(osc, 12, "%d", calcul_oscillation(g, gc));
+    char* finalosc=concat("Periode d'oscillation: ", osc);
+
+    char gen[12];
+    snprintf(gen, 12, "%d", generationOscillante);
+    char* finalgen=concat("Première géneration oscillante: ", gen);
+
+    SET_SOURCE_BLACK(cr);
+    cairo_select_font_face(cr, "Miriam Mono", 0, 0.5);
+    cairo_set_font_size(cr, 15);
+
+    cairo_move_to(cr, debutX + 17, GUI_Y+50);
+    cairo_show_text(cr, finalosc);
+    cairo_move_to(cr, debutX + 17, GUI_Y+70);
+    cairo_show_text(cr, finalgen);
+
+    print_grille(surface, &demo, 5*getX_SizeWindow()/6-5*demo.nbc, 300, 10);
+
+    print_colonnes(cr, &demo, 5*getX_SizeWindow()/6-5*demo.nbc, 300, 10);
+    print_lignes(cr, &demo, 5*getX_SizeWindow()/6-5*demo.nbc, 300, 10);
+
+    cairo_destroy(cr); // destroy cairo mask
+
+}
+
 void print_GraphicUserInterface(cairo_surface_t *surface, grille *g){
 
     cairo_t *cr;
 	cr=cairo_create(surface);
 
+    set_bg(cr);
+    cairo_paint(cr);
+
     int debutTabX=(getX_SizeWindow()-SQUARE_SIZE*(g->nbc+1))/2;
     int debutTabY=(getY_SizeWindow()-SQUARE_SIZE*(g->nbl+1))/2;
 
-    print_grille(surface, g, debutTabX, debutTabY);
+    print_grille(surface, g, debutTabX, debutTabY, SQUARE_SIZE);
 
-    print_colonnes(cr, g, debutTabX, debutTabY);
-    print_lignes(cr, g, debutTabX, debutTabY);
+    print_colonnes(cr, g, debutTabX, debutTabY, SQUARE_SIZE);
+    print_lignes(cr, g, debutTabX, debutTabY, SQUARE_SIZE);
 
     print_GUI_vieillsement(vieillsement, surface, getX_SizeWindow(), getY_SizeWindow());
     print_GUI_cycle(compte_voisins_vivants, surface, getX_SizeWindow(), getY_SizeWindow());
     print_GUI_grille(surface, getX_SizeWindow(), getY_SizeWindow());
 
-}
+    cairo_destroy(cr); // destroy cairo mask
 
-char* newGrille(int event){
-    char n=event-9+48;
-    char tmp[2]={n, '\0'};
-    char* newGrille;
-    newGrille=concat("./grilles/grille", concat(tmp, ".txt"));                                 
-    return newGrille;
 }
 
 
@@ -357,7 +404,7 @@ void debut_jeu_cairo(grille *g, grille *gc){
 			BlackPixel(dpy, scr), BlackPixel(dpy, scr));
 
 	XStoreName(dpy, win, "Game of Life by Bendriss Mohamed Dris");
-	XSelectInput(dpy, win, KeyPressMask|ExposureMask|ButtonPressMask|KeyReleaseMask);
+	XSelectInput(dpy, win, KeyPressMask|ExposureMask|ButtonPressMask);
 	XMapWindow(dpy, win);
 	
 	// create cairo surface
@@ -388,26 +435,35 @@ void debut_jeu_cairo(grille *g, grille *gc){
 			else compte_voisins_vivants=compte_voisins_vivants_en_mode_cyclique;
 			print_GraphicUserInterface(cs, g);
 		}
-		else if(e.type==KeyPress && e.xkey.keycode == keycode("n")){ // charger une nouvelle grille
+		else if(e.type==KeyPress && e.xkey.keycode == keycode("n")){
 			XNextEvent(dpy, &e);
-			if(e.type==KeyPress && e.xkey.keycode>=keycode("1") && e.xkey.keycode<=keycode("9")){
-				libere_grille(g);
-				libere_grille(gc);
-				init_grille_from_file(newGrille(e.xkey.keycode), g);
-				alloue_grille(g->nbl, g->nbc, gc);
-				timeEvo=0;
-				print_GraphicUserInterface(cs, g);
+				if(e.type==KeyPress && e.xkey.keycode>=keycode("1") && e.xkey.keycode<=keycode("9")){
+					libere_grille(g);
+					libere_grille(gc);
+					init_grille_from_file(newGrille(e.xkey.keycode), g);
+					alloue_grille(g->nbl, g->nbc, gc);
+					timeEvo=0;
+					print_GraphicUserInterface(cs, g);
+				}
 			}
-		}
-        else if(e.type==KeyPress && e.xkey.keycode == keycode("Control_L")){
-            print_crtl(cs);
-            while(e.type!=KeyRelease) XNextEvent(dpy, &e);
-            print_GraphicUserInterface(cs, g);
-        }
 		else if(e.type==KeyPress && e.xkey.keycode == keycode("d")){
 			darkmode=darkmode==1? 0:1;
 			print_GraphicUserInterface(cs, g);
 		}
+
+        else if(e.type==KeyPress && e.xkey.keycode == keycode("Control_L")){
+            print_crtl(cs);
+            XNextEvent(dpy, &e);
+            while(e.xkey.keycode != keycode("q")) XNextEvent(dpy, &e);
+            print_GraphicUserInterface(cs, g);
+        }
+        else if(e.type == KeyPress && e.xkey.keycode == keycode("o")){
+            print_oscillation(cs, g, gc);
+            XNextEvent(dpy, &e);
+            while(e.xkey.keycode != keycode("q")) XNextEvent(dpy, &e);
+            setGen();
+            print_GraphicUserInterface(cs, g);
+        }
 	}
 
     cairo_surface_destroy(cs); // destroy cairo surface

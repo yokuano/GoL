@@ -12,6 +12,7 @@
 
 int vieillsement=0;
 int timeEvo=0;
+int generationOscillante=1;
 
 int compte_voisins_vivants_en_mode_cyclique(int i, int j, grille g){
 
@@ -74,8 +75,8 @@ void calcul_vieillissement(grille *g){
 
 }
 
-int Calculoscillation(grille *g){
-	int limit=1000;
+int calcul_oscillation_wrapper(grille *g){
+	int limit=512;
 	int oscillation=0;
 	grille g2;
 	grille g3;
@@ -84,29 +85,31 @@ int Calculoscillation(grille *g){
 	copie_grille(*g, g2);
 	do{
 		if(testVideGrille(&g2)){
-			oscillation=1;
+			oscillation=0;
 			break;
 		}
 		evolue(&g2, &g3);
 		oscillation++;
 	}while(!(testEquivalenceGrille(g, &g2)) && oscillation<limit);
 	libere_grille(&g2);
-	if(oscillation==limit) oscillation=0;
+	if(oscillation==limit) oscillation=-1;
 	return oscillation;
 }
 
-int recurrsionoscillation(grille *g, grille *gc){
+int calcul_oscillation(grille *g, grille *gc){
 	grille g1;
 	alloue_grille(g->nbl, g->nbc, &g1);
 	copie_grille(*g, g1);
 
-	if(Calculoscillation(&g1)<512) return Calculoscillation(&g1);
-	else {
+	if(calcul_oscillation_wrapper(&g1)>-1 && calcul_oscillation_wrapper(&g1)<512) return calcul_oscillation_wrapper(&g1);
+	else if(generationOscillante<512){
 		evolue(&g1, gc);
-		return recurrsionoscillation(&g1, gc);
+		generationOscillante++;
+		return calcul_oscillation(&g1, gc);
 	}
-
+	return calcul_oscillation_wrapper(&g1);
 }
+
 
 void evolue (grille *g, grille *gc){
 
