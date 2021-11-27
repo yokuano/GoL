@@ -74,24 +74,39 @@ void calcul_vieillissement(grille *g){
 
 }
 
-int oscillation(grille *g, grille *gc){
-	unsigned int limit=255;
+int Calculoscillation(grille *g){
+	int limit=1000;
 	int oscillation=0;
 	grille g2;
+	grille g3;
 	alloue_grille(g->nbl, g->nbc, &g2);
+	alloue_grille(g->nbl, g->nbc, &g3);
 	copie_grille(*g, g2);
 	do{
 		if(testVideGrille(&g2)){
-			oscillation=-1;
+			oscillation=1;
 			break;
 		}
-		evolue(&g2, gc);
+		evolue(&g2, &g3);
 		oscillation++;
-	}while(!(testEquivalenceGrille(g, &g2)) && oscillation!=limit);
+	}while(!(testEquivalenceGrille(g, &g2)) && oscillation<limit);
 	libere_grille(&g2);
+	if(oscillation==limit) oscillation=0;
 	return oscillation;
 }
 
+int recurrsionoscillation(grille *g, grille *gc){
+	grille g1;
+	alloue_grille(g->nbl, g->nbc, &g1);
+	copie_grille(*g, g1);
+
+	if(Calculoscillation(&g1)<512) return Calculoscillation(&g1);
+	else {
+		evolue(&g1, gc);
+		return recurrsionoscillation(&g1, gc);
+	}
+
+}
 
 void evolue (grille *g, grille *gc){
 
