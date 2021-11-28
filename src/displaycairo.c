@@ -313,14 +313,10 @@ void print_crtl(cairo_surface_t *surface){
 void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
     cairo_t *cr;
 	cr=cairo_create(surface);
-    grille demo;
+    grille demo, demo2;
 	alloue_grille(g->nbl, g->nbc, &demo);
-    copie_grille(*gc, demo);
-
-    while((generationOscillante!=1)){
-        evolue(&demo, gc);
-        generationOscillante--;
-    }
+    alloue_grille(g->nbl, g->nbc, &demo2);
+    copie_grille(*g, demo);
 
     int debutX=2*getX_SizeWindow()/3;
 
@@ -332,6 +328,15 @@ void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
     char osc[12];
     snprintf(osc, 12, "%d", calcul_oscillation(g, gc));
     char* finalosc=concat("Periode d'oscillation: ", osc);
+
+    for(int i=1; i!=generationOscillante; i++){
+        evolue(&demo, &demo2);
+    }
+
+    print_grille(surface, &demo, 5*getX_SizeWindow()/6-5*(1+demo.nbc), 300, 10);
+
+    print_colonnes(cr, &demo, 5*getX_SizeWindow()/6-5*(1+demo.nbc), 300, 10);
+    print_lignes(cr, &demo, 5*getX_SizeWindow()/6-5*(1+demo.nbc), 300, 10);
 
     char gen[12];
     snprintf(gen, 12, "%d", generationOscillante);
@@ -346,13 +351,15 @@ void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
     cairo_move_to(cr, debutX + 17, GUI_Y+70);
     cairo_show_text(cr, finalgen);
 
-    print_grille(surface, &demo, 5*getX_SizeWindow()/6-5*demo.nbc, 300, 10);
+    cairo_move_to(cr, debutX + 17, GUI_Y+400);
+    cairo_show_text(cr, "Génération=Temps d'évolution+1");
+    cairo_move_to(cr, debutX + 17, GUI_Y+420);
+    cairo_show_text(cr, "Première gen oscillante=Première apparition du motif oscillant");
 
-    print_colonnes(cr, &demo, 5*getX_SizeWindow()/6-5*demo.nbc, 300, 10);
-    print_lignes(cr, &demo, 5*getX_SizeWindow()/6-5*demo.nbc, 300, 10);
+    libere_grille(&demo);
+    libere_grille(&demo2);
 
     cairo_destroy(cr); // destroy cairo mask
-
 }
 
 void print_GraphicUserInterface(cairo_surface_t *surface, grille *g){

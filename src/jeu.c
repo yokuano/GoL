@@ -92,6 +92,7 @@ int calcul_oscillation_wrapper(grille *g){
 		oscillation++;
 	}while(!(testEquivalenceGrille(g, &g2)) && oscillation<limit);
 	libere_grille(&g2);
+	libere_grille(&g3);
 	if(oscillation==limit) oscillation=-1;
 	return oscillation;
 }
@@ -107,7 +108,7 @@ int calcul_oscillation(grille *g, grille *gc){
 		generationOscillante++;
 		return calcul_oscillation(&g1, gc);
 	}
-	return calcul_oscillation_wrapper(&g1);
+	return -1;									// Aucune oscillation trouvé au bout des 512 générations testées (cas extremement rare mais à prendre en compte)
 }
 
 
