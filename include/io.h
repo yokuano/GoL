@@ -1,6 +1,6 @@
 /**
  * \file io.h
- * \brief Bibliothèque contenant les fonctions de io.c. Permet d'afficher le jeu sur le terminal et d'actualisé l'affichage 
+ * \brief Bibliothèque contenant les fonctions de io.c.\n Permet d'afficher le jeu sur le terminal et d'actualisé l'affichage.
  * \author Bendriss Mohamed Dris
  * 
  * \copyright Copyright (c) 2021

@@ -1,6 +1,6 @@
 /**
  * \file grille.h
- * \brief Bibliothèque contenant les fonctions de grille.c. Permet de manipuller la grille
+ * \brief Bibliothèque contenant les fonctions de grille.c.\n Permet de manipuller la grille.
  * \author Bendriss Mohamed Dris
  * 
  * \copyright Copyright (c) 2021
@@ -17,13 +17,17 @@
 
 /**
  * \struct grille
- * \brief Structure qui représente une grille\n
- * **nbl**: nombre de lignes\n
- * **nbc**: nombre de colonnes\n
- * **cellules**: tableau d'entiers à 2 dimensions\n
+ * \brief Structure de données qui représente une grille\n
  */
-typedef struct {int nbl; int nbc; int** cellules;} grille;
+typedef struct {
+    /** @brief Nombres de lignes */ 
+    int nbl; 
+    /** @brief Nombres de colonnes */ 
+    int nbc; 
+    /** @brief Tableau de cellule de taille nbl*nbc */ 
+    int** cellules;} grille;
  
+
 /**
  * \param[in] l Nombre de lignes dans la grilles
  * \param[in] c Nombre de colonnes de ma grille
@@ -32,11 +36,13 @@ typedef struct {int nbl; int nbc; int** cellules;} grille;
  */
 void alloue_grille (int l, int c, grille* g);
 
+
 /**
  * \brief **Libère** la grille mise en paramètre de l'espace mémoire
  * \param[out] g Grille que l'on libère de l'éspace mémoire
  */
 void libere_grille (grille* g);
+
 
 /**
  * \param[in] filename Nom du fichier texte de la grille que nous allons charger
@@ -44,6 +50,7 @@ void libere_grille (grille* g);
  * \brief **Créer** une grille **à partir d'un fichier** mis en argument filename
  */
 void init_grille_from_file (char * filename, grille* g);
+
 
 /**
  * \param[in] i Coordonée i de la cellule
@@ -53,6 +60,7 @@ void init_grille_from_file (char * filename, grille* g);
  */
 static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
 
+
 /**
  * \param[in] i Coordonée i de la cellule
  * \param[in] j Coordonée j de la cellule
@@ -60,6 +68,7 @@ static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
  * \brief Rend **morte** la cellule (i, j) de la grille g
  */
 static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
+
 
 /**
  * \param[in] i Coordonée i de la cellule
@@ -69,6 +78,7 @@ static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
  */
 static inline void set_nonviable(int i, int j, grille g){g.cellules[i][j] = -1;}
 
+
 /**
  * \param[in] i Coordonée i de la cellule
  * \param[in] j Coordonée j de la cellule
@@ -76,6 +86,7 @@ static inline void set_nonviable(int i, int j, grille g){g.cellules[i][j] = -1;}
  * \brief **Teste** si la cellule (i, j) est **vivante**
  */
 static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j]>=1 && g.cellules[i][j]<=9;}
+
 
 /**
  * \param[in] i Coordonée i de la cellule
@@ -93,14 +104,16 @@ static inline int est_viable(int i, int j, grille g){return g.cellules[i][j]!=-1
  */
 void copie_grille (grille gs, grille gd);
 
+
 /**
- * \brief Test si deux grille sont identique ou non (les grilles sont supposé de meme taille)
- * 
+ * \brief Test si deux grille sont identique ou non
+ * \pre Les deux grilles passé en argument sond de la même taille
  * \param[in] g1 
  * \param[in] g2 
  * \return boolean
  */
 bool testEquivalenceGrille(grille* g1, grille* g2);
+
 
 /**
  * \brief Test si une grille est vide

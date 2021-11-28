@@ -1,6 +1,6 @@
 /**
  * \file displaycairo.h
- * \brief Bibliothèque contenant l'ensemble des fonction de displaycairo.c. Permet d'afficher et d'actualiser la fenêtre graphique
+ * \brief Bibliothèque contenant l'ensemble des fonction de displaycairo.c.\n Permet d'afficher et d'actualiser la fenêtre graphique
  * \author Bendriss Mohamed Dris
  * 
  * \copyright Copyright (c) 2021
@@ -16,8 +16,8 @@
 #include <string.h>
 #include <X11/keysymdef.h>
 #include <stdbool.h>
-
 #include "io.h"
+
 /** @brief Taille d'une cellule de la grille */
 #define SQUARE_SIZE 50
 /** @brief Taille de l'interface superieur */
@@ -44,23 +44,32 @@ extern int darkmode;
  * 
  * \author David Heffernan on: https://stackoverflow.com/questions/8465006/how-do-i-concatenate-two-strings-in-c/8465083#8465083
  * \copyright Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
- * \return Concaténation char* (s1+s2)  
+ * \return char* (s1+s2)  
  */
 char* concat(const char *s1, const char *s2);
 
 
 /**
+ * brief Permet de trouver le chemain de la grille en fonction de la touche numérique entrée
+ * 
+ * \param[in] event 
+ * \return Tableau de char qui contient le chemain de la grille que l'on veux charger
+ */
+char* newGrille(int event);
+
+
+/**
  * \brief Permet d'obtenir la longeure de l'ecran
  * 
- * \return Longueur de l'ecran (int)
+ * \return int: Longueur de l'ecran
  */
 int getX_SizeWindow();
 
 
 /**
- * \brief Permet d'obtenir la largeur de l'ecran
+ * \brief Permet d'obtenir la hauteur de l'ecran
  * 
- * \return Largeur de l'ecran (int)
+ * \return int: Hauteur de l'ecran
  */
 int getY_SizeWindow();
 
@@ -69,10 +78,10 @@ int getY_SizeWindow();
  * \brief Permet de d'afficher un rectangle dans la fenètre. Le coin gauche du rectangle est de coordonée (debutx, debuty). Les dimmensions du rectangles sont x et y
  * 
  * \param[in, out] cr Cairo Mask
- * \param[in] debutx Coordonée X du point en haut à gauche du rectangle
- * \param[in] debuty Coordonée Y du point en haut à gauche du rectangle
- * \param[in] x Dimension X du rectangle
- * \param[in] y Dimension Y du rectangle
+ * \param[in] debutx Coordonée X du point superieur gauche du rectangle
+ * \param[in] debuty Coordonée Y du point superieur gauche du rectangle
+ * \param[in] x Longueur du rectangle
+ * \param[in] y Largeur Y du rectangle
  * \param[in] bold Epaisseur du trait en nombre de pixels
  */
 void printRectangle(cairo_t *cr, int debutx, int debuty, int x, int y, int bold);
@@ -114,7 +123,6 @@ void print_GUI_vieillsement(int vieillsement, cairo_surface_t *surface, int size
 
 
 /**
- * 
  * \brief Affiche la zone du GUI à la grille que l'on charge
  * 
  * \param[in,out] surface surface_cairo
@@ -125,9 +133,9 @@ void print_GUI_grille(cairo_surface_t *surface, int sizeX, int sizeY);
 
 
 /**
- * \brief Affiche la zone du GUI consacré au mode do voisinage
+ * \brief Affiche la zone du GUI consacré au mode de voisinage
  * 
- * \param[in] compte_voisins_vivants Pointeur de fonction dont la valeur change si le voisinage est cyclique ou non
+ * \param[in] compte_voisins_vivants Pointeur de fonction sur la fonction qui calcul le nombre de voisins
  * \param[in,out] surface surface_cairo
  * \param[in] sizeX Longeur de l'ecran
  * \param[in] sizeY Largeur de l'ecran
@@ -136,9 +144,9 @@ void print_GUI_cycle(int (*compte_voisins_vivants) (int, int, grille), cairo_sur
 
 
 /**
- * \brief 
+ * \brief Remplie les cellules de la grille selon leur etat: vivante, non viable, morte
  * 
- * \param[in, out] surface cairo_surface 
+ * \param[in, out] surface surface_cairo
  * \param[in] g grille g que l'on affiche
  * \param[in] debutTabX Coordonée X du coin en haut a gauche de la grille
  * \param[in] debutTabY Coordonée Y du coin en haut a gauche de la grille
@@ -147,11 +155,21 @@ void print_grille(cairo_surface_t *surface, grille *g, int debutTabX, int debutT
 
 
 /**
- * @brief Afiche les controles
+ * @brief Affiche les controles du jeu à gauche de l'écran
  * 
- * @param[in] surface 
+ * \param[in] surface 
  */
 void print_crtl(cairo_surface_t *surface);
+
+
+/**
+ * \brief Affiche le resultat du test d'oscillation ainsi que des informations que le motif de grille oscillante à droite de l'ecran
+ * 
+ * \param[in, out] surface 
+ * \param[in] g 
+ * \param[in] gc 
+ */
+void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc);
 
 
 /**
@@ -161,15 +179,6 @@ void print_crtl(cairo_surface_t *surface);
  * \param[in] g grille g que l'on affiche
  */
 void print_GraphicUserInterface(cairo_surface_t *surface, grille *g);
-
-
-/**
- * brief Permet de trouver le chemain de la grille en fonction de la touche numérique entrée
- * 
- * \param[in] event 
- * \return Tableau de char qui contient le chemain de la grille que l'on veux charger
- */
-char* newGrille(int event);
 
 
 /**

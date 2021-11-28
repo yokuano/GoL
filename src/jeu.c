@@ -75,7 +75,7 @@ void calcul_vieillissement(grille *g){
 
 }
 
-int calcul_oscillation_wrapper(grille *g){
+int calcul_oscillation(grille *g){
 	int limit=512;
 	int oscillation=0;
 	grille g2;
@@ -98,16 +98,18 @@ int calcul_oscillation_wrapper(grille *g){
 	return oscillation;
 }
 
-int calcul_oscillation(grille *g, grille *gc){
+int calcul_oscillation_wrapper(grille *g, grille *gc){
 	grille g1;
 	alloue_grille(g->nbl, g->nbc, &g1);
 	copie_grille(*g, g1);
 
-	if(calcul_oscillation_wrapper(&g1)>-1 && calcul_oscillation_wrapper(&g1)!=512) return calcul_oscillation_wrapper(&g1);
+	if(calcul_oscillation(&g1)>-1 && calcul_oscillation(&g1)!=512) {
+		return calcul_oscillation(&g1);
+	}
 	else if(generationOscillante!=512){
 		evolue(&g1, gc);
 		generationOscillante++;
-		return calcul_oscillation(&g1, gc);
+		return calcul_oscillation_wrapper(&g1, gc);
 	}
 	return -1;									// Aucune oscillation trouvé au bout des 512 générations testées (cas extremement rare mais à prendre en compte)
 }

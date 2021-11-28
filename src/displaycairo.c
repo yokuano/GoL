@@ -12,6 +12,8 @@
 extern int timeEvo;
 extern int vieillsement;
 extern int generationOscillante;
+
+/** \brief Valeur qui détérmine la couleur de fond de la fenetre graphique*/ 
 int darkmode=1;
 
 char* concat(const char *s1, const char *s2)
@@ -327,7 +329,7 @@ void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
     printRectangle(cr, debutX, GUI_Y, getX_SizeWindow()/3, getY_SizeWindow()-GUI_Y, 3);
     
     char osc[12];
-    snprintf(osc, 12, "%d", calcul_oscillation(g, gc));
+    snprintf(osc, 12, "%d", calcul_oscillation_wrapper(g, gc));
     char* finalosc=concat("Periode d'oscillation: ", osc);
 
     for(int i=1; i!=generationOscillante; i++){
@@ -352,7 +354,7 @@ void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
     cairo_move_to(cr, debutX + 17, GUI_Y+130);
     char tmp[12];
     snprintf(tmp, 12, "%d", generationOscillante-1);
-    char* finaltmp=concat("Temps d'évolution:  ", tmp);
+    char* finaltmp=concat("Pas avant motif oscilant:  ", tmp);
     cairo_show_text(cr, finaltmp);
     cairo_move_to(cr, debutX + 17, GUI_Y+155);
     cairo_show_text(cr, finalosc);
