@@ -85,15 +85,16 @@ int calcul_oscillation_wrapper(grille *g){
 	copie_grille(*g, g2);
 	do{
 		if(testVideGrille(&g2)){
+			generationOscillante=oscillation+1;
 			oscillation=0;
 			break;
 		}
 		evolue(&g2, &g3);
 		oscillation++;
 	}while(!(testEquivalenceGrille(g, &g2)) && oscillation<limit);
+	if(oscillation==limit) oscillation=-1;
 	libere_grille(&g2);
 	libere_grille(&g3);
-	if(oscillation==limit) oscillation=-1;
 	return oscillation;
 }
 
@@ -102,8 +103,8 @@ int calcul_oscillation(grille *g, grille *gc){
 	alloue_grille(g->nbl, g->nbc, &g1);
 	copie_grille(*g, g1);
 
-	if(calcul_oscillation_wrapper(&g1)>-1 && calcul_oscillation_wrapper(&g1)<512) return calcul_oscillation_wrapper(&g1);
-	else if(generationOscillante<512){
+	if(calcul_oscillation_wrapper(&g1)>-1 && calcul_oscillation_wrapper(&g1)!=512) return calcul_oscillation_wrapper(&g1);
+	else if(generationOscillante!=512){
 		evolue(&g1, gc);
 		generationOscillante++;
 		return calcul_oscillation(&g1, gc);
