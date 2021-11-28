@@ -177,7 +177,7 @@ void debut_jeu(grille *g, grille *gc){
 			case 'o':
 				system("clear");
 				printf("yes\n");
-				int res=calculOscillation(g, gc);
+				int res=calcul_oscillation_wrapper(g, gc);
 				printf("Osscillation de cette grille: %d", res);
 			default :
 

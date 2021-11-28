@@ -13,7 +13,10 @@ extern int timeEvo;
 extern int vieillsement;
 extern int generationOscillante;
 
-/** \brief Valeur qui détérmine la couleur de fond de la fenetre graphique*/ 
+/**
+ * @brief 
+ * 
+ */
 int darkmode=1;
 
 char* concat(const char *s1, const char *s2)
@@ -29,7 +32,9 @@ char* newGrille(int event){
     char n=event-9+48;
     char tmp[2]={n, '\0'};
     char* newGrille;
-    newGrille=concat("./grilles/grille", concat(tmp, ".txt"));                                 
+    char* filextention=concat(tmp, ".txt");
+    newGrille=concat("./grilles/grille", filextention);         
+    free(filextention);                        
     return newGrille;
 }
 
@@ -354,7 +359,7 @@ void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
     cairo_move_to(cr, debutX + 17, GUI_Y+130);
     char tmp[12];
     snprintf(tmp, 12, "%d", generationOscillante-1);
-    char* finaltmp=concat("Pas avant motif oscilant:  ", tmp);
+    char* finaltmp=concat("Temps d'évolution:  ", tmp);
     cairo_show_text(cr, finaltmp);
     cairo_move_to(cr, debutX + 17, GUI_Y+155);
     cairo_show_text(cr, finalosc);
@@ -460,10 +465,12 @@ void debut_jeu_cairo(grille *g, grille *gc){
 				if(e.type==KeyPress && e.xkey.keycode>=keycode("1") && e.xkey.keycode<=keycode("9")){
 					libere_grille(g);
 					libere_grille(gc);
-					init_grille_from_file(newGrille(e.xkey.keycode), g);
+                    char* grillename=newGrille(e.xkey.keycode);
+					init_grille_from_file(grillename, g);
 					alloue_grille(g->nbl, g->nbc, gc);
 					timeEvo=0;
 					print_GraphicUserInterface(cs, g);
+                    free(grillename);
 				}
 			}
 		else if(e.type==KeyPress && e.xkey.keycode == keycode("d")){
