@@ -49,13 +49,14 @@ void affiche_grille (grille g);
 void efface_grille (grille g);
 
 /**
- * \param[out] g
- * \param[out] gc
+ * \param[in, out] g
+ * \param[in, out] gc
  * \brief Permet de commencer le jeux:\n
  * -Si on appuie sur la touche **Enter**: on passe à **l'état suivant de la grille**.\n
  * -Si on appuie sur la touche **Q**: on **arrete le jeu**.\n
  * -Si on appuie sur la touche **N**: on peux **activer/désactiver** le vieillsement
- * -Si on appuie sur la touche **C**: on peux ***activer/désactiver** le voisinage cycliquer
+ * -Si on appuie sur la touche **C**: on peux **activer/désactiver** le voisinage cycliquer
+ * -Si on appuie sur la touche **O**: on peux **lancer un teste d'oscillation**
  * -Si on appuie sur **une autre touche**: on **efface le charactère**, et rien ne se passe
  */
 void debut_jeu(grille *g, grille *gc);
