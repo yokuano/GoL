@@ -311,6 +311,7 @@ void print_crtl(cairo_surface_t *surface){
 }
 
 void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
+
     cairo_t *cr;
 	cr=cairo_create(surface);
     grille demo, demo2;
@@ -333,31 +334,41 @@ void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
         evolue(&demo, &demo2);
     }
 
-    print_grille(surface, &demo, 5*getX_SizeWindow()/6-5*(1+demo.nbc), 300, 10);
-
-    print_colonnes(cr, &demo, 5*getX_SizeWindow()/6-5*(1+demo.nbc), 300, 10);
-    print_lignes(cr, &demo, 5*getX_SizeWindow()/6-5*(1+demo.nbc), 300, 10);
-
-    char gen[12];
-    snprintf(gen, 12, "%d", generationOscillante);
-    char* finalgen=concat("Première géneration oscillante: ", gen);
+    print_grille(surface, &demo, 5*getX_SizeWindow()/6, GUI_Y+70, 10);
+    print_colonnes(cr, &demo, 5*getX_SizeWindow()/6 , GUI_Y+70, 10);
+    print_lignes(cr, &demo, 5*getX_SizeWindow()/6, GUI_Y+70, 10);
 
     SET_SOURCE_BLACK(cr);
     cairo_select_font_face(cr, "Miriam Mono", 0, 0.5);
     cairo_set_font_size(cr, 15);
 
-    cairo_move_to(cr, debutX + 17, GUI_Y+50);
-    cairo_show_text(cr, finalosc);
-    cairo_move_to(cr, debutX + 17, GUI_Y+70);
-    cairo_show_text(cr, finalgen);
+    cairo_move_to(cr, debutX + 17, GUI_Y+20);
+    cairo_show_text(cr, "Etat de la grille lors de la première apparition du motif oscillant"); 
 
-    cairo_move_to(cr, debutX + 17, GUI_Y+400);
-    cairo_show_text(cr, "Génération=Temps d'évolution+1");
-    cairo_move_to(cr, debutX + 17, GUI_Y+420);
-    cairo_show_text(cr, "Première gen oscillante=Première apparition du motif oscillant");
+    cairo_move_to(cr, debutX + 17, GUI_Y+80);
+    cairo_show_text(cr, "Vieillsement: "); 
+    cairo_move_to(cr, debutX + 17, GUI_Y+105);
+    cairo_show_text(cr, "Voisinage cyclique: ");
+    cairo_move_to(cr, debutX + 17, GUI_Y+130);
+    char tmp[12];
+    snprintf(tmp, 12, "%d", generationOscillante-1);
+    char* finaltmp=concat("Temps d'évolution:  ", tmp);
+    cairo_show_text(cr, finaltmp);
+    cairo_move_to(cr, debutX + 17, GUI_Y+155);
+    cairo_show_text(cr, finalosc);
+
+    SET_SOURCE_GREEN(cr);
+    vieillsement ? SET_SOURCE_GREEN(cr) : SET_SOURCE_RED(cr);
+    cairo_rectangle(cr, debutX+170, GUI_Y+68, 20, 15);
+    cairo_fill(cr);
+    compte_voisins_vivants==compte_voisins_vivants_en_mode_cyclique ? SET_SOURCE_GREEN(cr) : SET_SOURCE_RED(cr);
+    cairo_rectangle(cr, debutX+170, GUI_Y+93, 20, 15);
+    cairo_fill(cr);
 
     libere_grille(&demo);
     libere_grille(&demo2);
+    free(finaltmp);
+    free(finalosc);
 
     cairo_destroy(cr); // destroy cairo mask
 }
