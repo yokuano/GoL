@@ -175,14 +175,11 @@ void debut_jeu(grille *g, grille *gc){
 				break;
 
 			case 'o':
-				system("clear");
-				printf("yes\n");
+				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
+				affiche_grille(*g);
 				int res=calcul_oscillation_wrapper(g, gc);
 				printf("Osscillation de cette grille: %d", res);
 			default :
-
-				print_gui(timeEvo, vieillsement, compte_voisins_vivants);
-				affiche_grille(*g);
 				getchar();
 				break;
 		}
