@@ -363,7 +363,7 @@ void print_oscillation(cairo_surface_t* surface, grille* g, grille* gc){
     cairo_move_to(cr, debutX + 17, GUI_Y+130);
     char tmp[12];
     snprintf(tmp, 12, "%d", generationOscillante-1);
-    char* finaltmp=concat("Pas restants:  ", tmp);
+    char* finaltmp=concat("Délais avant oscillation:  ", tmp);
     cairo_show_text(cr, finaltmp);
     cairo_move_to(cr, debutX + 17, GUI_Y+155);
     cairo_show_text(cr, finalosc);

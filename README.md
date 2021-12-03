@@ -1,5 +1,5 @@
 # **Jeu de la vie**
-*v5.2.5*
+*v5.2.6*
 
 
 
@@ -129,14 +129,34 @@ Si vous souhaitez quitter le programme, il suffit **d'appuyer sur la touche q pu
 
 ### Mode GRAPHIQUE
 
-***[WIP]***
+La plupart des fonctionalitées sont le memes que celles en mode textes, mais il y'a cependants des différences mineurs, ainsi que qlq fonctionalitées suplémentaires:
+
+### Evolution de la grille
+
+Un clique gauche remplace la touche entrée
+
+### Charger une nouvelle grille
+
+On appuye sur la touche n, puis on appuie sur le numéro de la grille que l'on veut charger sur le clavier (numéro situé au dessus du clavier). Les grilles disponibles restent les meme, grace au touche entre 1 et 9. Si après avoir appuyer sur la touche n on appuye sur une touche qui n'est pas un chiffre, rien ne ce passe et il faut appuyer sur n à nouveau pour choisir une grille
+
+### Changer le mode du fond d'ecran
+
+Appuyer sur la touche D pour faire une transition entre dark mode et light mode. Par defaut, le jeu est en dark mode. La fonctionalité n'a pas trop d'utile, mais sait on jamais si on a des hérétiques qui utilisent light mode 
+
+### Afficher les controles
+
+Appuyer sur la touche CRTL afin d'afficher des informations sur les controles et le code couleur
+
+### Quitter le jeu
+
+Un clique droit permet de quitter le jeu et fermet la fenetre
 
 
 ## Options disponible dans le makefile
 
 - **Générer la doccumentation**
 ```
-make docs
+make doc
 ```
 Une fois cela fait, **un dossier doc** sera créer, ouvrez le fichier **index.html** dans ce dossier pour avoir accès à la doccumentation
 
