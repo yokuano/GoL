@@ -179,6 +179,8 @@ void debut_jeu(grille *g, grille *gc){
 				affiche_grille(*g);
 				int res=calcul_oscillation_wrapper(g, gc);
 				printf("Osscillation de cette grille: %d", res);
+				getchar();
+				break;
 			default :
 				getchar();
 				break;

@@ -1,12 +1,15 @@
 # **Jeu de la vie**
-*v2.9.2*
+*v5.2.5*
 
 
 
-Ce **[depot git](https://git.unistra.fr/bendriss/tech-dev-rendu-jeu-de-la-vie)** contient l'ensemble du code source du Jeu de la vie. Vous trouverez plus bas dans ce fichier des explcations sur les points suivants:
+Ce **[depot git](https://git.unistra.fr/bendriss/tech-dev-rendu-jeu-de-la-vie)** contient l'ensemble du code source du Jeu de la vie. 
+Voici une liste des points abordés plus bas:
 
-- Le fonctionement du Jeu de la vie
-- Générer l'executable et l'utiliser
+- Une listes des prérequis à installer
+- Une brève introduction sur le jeu de la vie
+- Générer l'executable
+- Controles
 - Fonctionalitées disponibles dans le makefile
 - Notation des versions
 
@@ -21,6 +24,11 @@ sudo apt install build-essential
 ##### Doxygen
 ```
 sudo apt install doxygen
+```
+
+##### Cairo
+```
+sudo apt-get install libcairo2-dev
 ```
 
 Si vous rencontrez un problème lors de l'instalation de ces packages, rendez vous sur **[ce lien](https://askubuntu.com/questions/378558/unable-to-locate-package-while-trying-to-install-packages-with-apt)**.
@@ -42,21 +50,42 @@ Voici une ilustration de ces règles:
 ![](https://cdn.discordapp.com/attachments/879749492868526150/901789717203386398/unknown.png)
 
 ## Génerer l'executable et l'utiliser
-Maintenant que vous savez comment le jeu fonctionne, il est temps **d'utiliser l'executable**:  
-- Télécharger l'archive du depot git et l'extraire
+Maintenant que vous savez comment le jeu fonctionne, il est temps **d'utiliser l'executable: **  
+- Télécharger et extraire l'archive du depot git.
 - Lancez un terminal et faites du **dossier que vous venez d'extraire votre repertoir courant**
-- Lancez la compilation à l'aide de la commande **make**
-- Maintenant, utilisez la commande suivante, en remplacant [n] par un **nombre entre 1 et 8**
+- Compilez avec make, selon le mode souhaité, puis lancez l'executable. 
 
+##### Mode TEXTE
 ```
-./main ./grilles/grille[n].txt
+make MODE=TEXTE
+./bin/main ./grilles/grille[n].txt              // n est un chiffre entre 1 et 9
 ```
-Voici une illustration sur un terminal:
+![](https://cdn.discordapp.com/attachments/662711929260736523/916330188525146152/MODETEXTE_make.mp4)
+- Les cellules contenant un 'O' sont **vivantes**. 
+- Les cellules vièrges sont **mortes**.
+- Les cellules avec un X rouge sont **non viables.**
 
-![](https://media.discordapp.net/attachments/879749492868526150/902862396798939146/make_and_use_executable.gif)
+##### Mode GRAPHIQUE
+```
+make
+./bin/main ./grilles/grille[n].txt              // n est un chiffre entre 1 et 9
+```
+![](https://cdn.discordapp.com/attachments/662711929260736523/916331199557959710/MODEGRAPH_make.mp4)
+- Les cellules verte sont **vivantes**. 
+- Les cellules vides **mortes**.
+- Les cellules rouges sont **non viables.**
 
-Les cellules contenant un 'O' sont **les cellules vivantes**. Les cellules vièrges sont quant à elles **mortes**.\
-A partir de la, un ensemble d'options vous sont offertes pour faire évoluer le jeu:
+## Controles
+
+Après avoir compilé et lancé l'executable, vous vous retrouvez face à votre grille. Un ensemble d'options vous sont offertes.  
+Ces fonctionalitées sont disponibles en mode texte et en mode graphique:
+- Evolution de la grille
+- Activer/Désactiver le vieillissement
+- Activer/Désactiver le voisinage cyclique
+- Calculer l'oscillation d'une grille
+- Charger une nouvelle grille
+
+### Mode TEXTE
 
 ### Faire évoluer l'environement
 Il est possible de **faire évoluer l'environement en appuyant sur la touche entrée**:
@@ -85,10 +114,22 @@ Vous avez la possiblilité **d'activer et de désactiver le voisinage cyclique**
 
 ![](https://media.discordapp.net/attachments/879749492868526150/902872988486094848/cyclique_or_no.gif)
 
+### Test d'oscillation
+
+Oscillation: periode qui sépare l'apparition entre 2 motifs identique. Le calcul prend en compte l'age des cellules, et le fait qu'un motif oscillant n'apparaisse pas imediatement. Si une grille est vide/stable, le test renvoie 1 par defaut. Si la colonie n'oscille pas et ne meurt jamais, le test renvoie -1. 
+Pour lancer un test d'oscillation, appuyez sur la **touche c puis entrez**:
+
+![](https://cdn.discordapp.com/attachments/662711929260736523/916358447266689095/ezgif.com-gif-maker.gif)
+
 ### Quitter le programme
 Si vous souhaitez quitter le programme, il suffit **d'appuyer sur la touche q puis entrée**:
 
 ![](https://media.discordapp.net/attachments/879749492868526150/902863516929761290/quit.gif)
+
+
+### Mode GRAPHIQUE
+
+***[WIP]***
 
 
 ## Options disponible dans le makefile
@@ -116,4 +157,4 @@ Le format sera **vx.y.z**
 
 - **x sera le niveau du jeu**, c'est à dire 1, 2, 3, 4 ou 5  
 - **y sera la version d'un certain niveau**, par exemple la version 2 du niveau 4 ce note: 4.2.z  
-- **z permet de noter une version qui a légerement changer**, sans pour autant avoir un impact consequant sur le code. Par exemple, un petit changement a la version 2 du niveau 3 se note: 3.2.1  
+- **z permet de noter une version qui a légerement changer**, sans pour autant avoir un impact consequant sur le code. Par exemple, un petit changement a la version 2 du niveau 3 se note: 3.2.1 
