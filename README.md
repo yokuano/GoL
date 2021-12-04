@@ -70,7 +70,7 @@ make MODE=TEXTE
 make
 ./bin/main ./grilles/grille[n].txt              // n est un chiffre entre 1 et 9
 ```
-![](https://cdn.discordapp.com/attachments/662711929260736523/916331199557959710/MODEGRAPH_make.mp4)
+![](https://cdn.discordapp.com/attachments/662711929260736523/916809756969168926/MODEGRAPH_make_online-video-cutter.com.mp4)
 - Les cellules verte sont **vivantes**. 
 - Les cellules vides **mortes**.
 - Les cellules rouges sont **non viables.**

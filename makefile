@@ -18,7 +18,7 @@ ifeq (TEXTE,$(MODE))
 	LIB+=io.o main.o
 
 else
-	LDFLAGS += -lcairo -lm -lX11
+	LDFLAGS += -lcairo -lX11
 	CPPFLAGS += -I/usr/include/cairo
 	LIB += displaycairo.o cairomain.o
 
@@ -33,7 +33,7 @@ $(OPATH)%.o : %.c %.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 libjeu.a: $(LIB)
-	make clean
+	rm -rf obj
 	ar rvs libjeu.a $(LIB)
 	mkdir -p $(LPATH) $(BPATH) $(OPATH)
 	ranlib libjeu.a
