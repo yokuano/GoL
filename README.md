@@ -1,5 +1,5 @@
 # **Jeu de la vie**
-*v5.2.6*
+*v5.3.0*
 
 
 Ce **[depot git](https://git.unistra.fr/bendriss/tech-dev-rendu-jeu-de-la-vie)** contient l'ensemble du code source du Jeu de la vie. 
