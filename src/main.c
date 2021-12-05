@@ -3,8 +3,7 @@
  * \brief Fonction principale qui permet de **lancer le jeu**
  * \author Bendriss Mohamed Dris
  * 
- * \copyright Copyright (c) 2021
- * 
+ * \copyright Copyright (c) 2021 
  */
 
 #include "io.h"

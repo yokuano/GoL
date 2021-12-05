@@ -4,7 +4,6 @@
  * @brief Fonction principale qui permet de **lancer le jeu en mode graphique**
  * 
  * @copyright Copyright (c) 2021
- * 
  */
 
 #include "displaycairo.h"

@@ -4,7 +4,6 @@
  * \author Bendriss Mohamed Dris
  * 
  * \copyright Copyright (c) 2021
- * 
  */
 
 #ifndef __DISPLAYCAIRO_H

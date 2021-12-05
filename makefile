@@ -16,12 +16,10 @@ vpath %.h include/
 
 ifeq (TEXTE,$(MODE))
 	LIB+=io.o main.o
-
 else
 	LDFLAGS += -lcairo -lX11
 	CPPFLAGS += -I/usr/include/cairo
 	LIB += displaycairo.o cairomain.o
-
 endif
 
 $(EXEC) : libjeu.a
